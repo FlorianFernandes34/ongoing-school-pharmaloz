@@ -1,0 +1,82 @@
+DEBUG - 2025-09-30 08:40:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:45:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:46:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:46:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:46:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:46:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:46:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:46:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:46:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:46:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:47:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:48:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:48:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:48:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:49:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:50:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 08:50:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:12:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:13:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-09-30 09:15:00 --> ParseError: syntax error, unexpected token "}"
+[Method: GET, Route: test/testcategorieread]
+in APPPATH\Controllers\Test.php on line 12.
+ 1 FCPATH\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\wamp64\\www\\pharmaloz\\vendor\\composer/../../app\\Controllers\\Test.php')
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controllers\\Test')
+ 3 SYSTEMPATH\Router\AutoRouterImproved.php(174): class_exists('\\App\\Controllers\\Test')
+ 4 SYSTEMPATH\Router\AutoRouterImproved.php(282): CodeIgniter\Router\AutoRouterImproved->searchFirstController()
+ 5 SYSTEMPATH\Router\Router.php(567): CodeIgniter\Router\AutoRouterImproved->getRoute('test/testcategorieread', 'get')
+ 6 SYSTEMPATH\Router\Router.php(231): CodeIgniter\Router\Router->autoRoute('test/testcategorieread')
+ 7 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcategorieread')
+ 8 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-30 09:15:02 --> ParseError: syntax error, unexpected token "}"
+[Method: GET, Route: test]
+in APPPATH\Controllers\Test.php on line 12.
+ 1 FCPATH\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\wamp64\\www\\pharmaloz\\vendor\\composer/../../app\\Controllers\\Test.php')
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controllers\\Test')
+ 3 SYSTEMPATH\Router\AutoRouterImproved.php(174): class_exists('\\App\\Controllers\\Test')
+ 4 SYSTEMPATH\Router\AutoRouterImproved.php(282): CodeIgniter\Router\AutoRouterImproved->searchFirstController()
+ 5 SYSTEMPATH\Router\Router.php(567): CodeIgniter\Router\AutoRouterImproved->getRoute('test', 'get')
+ 6 SYSTEMPATH\Router\Router.php(231): CodeIgniter\Router\Router->autoRoute('test')
+ 7 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test')
+ 8 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-30 09:15:05 --> ParseError: syntax error, unexpected token "}"
+[Method: GET, Route: test]
+in APPPATH\Controllers\Test.php on line 12.
+ 1 FCPATH\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\wamp64\\www\\pharmaloz\\vendor\\composer/../../app\\Controllers\\Test.php')
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controllers\\Test')
+ 3 SYSTEMPATH\Router\AutoRouterImproved.php(174): class_exists('\\App\\Controllers\\Test')
+ 4 SYSTEMPATH\Router\AutoRouterImproved.php(282): CodeIgniter\Router\AutoRouterImproved->searchFirstController()
+ 5 SYSTEMPATH\Router\Router.php(567): CodeIgniter\Router\AutoRouterImproved->getRoute('test', 'get')
+ 6 SYSTEMPATH\Router\Router.php(231): CodeIgniter\Router\Router->autoRoute('test')
+ 7 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test')
+ 8 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-09-30 09:15:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:18:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:18:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:18:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:18:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:18:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:18:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:18:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:18:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:31:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:31:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:32:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:42:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:43:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:43:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:43:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:43:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-09-30 09:43:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

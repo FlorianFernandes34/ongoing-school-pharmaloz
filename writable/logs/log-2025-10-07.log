@@ -1,0 +1,304 @@
+DEBUG - 2025-10-07 08:31:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:32:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:32:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:32:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:33:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:33:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:34:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:35:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:35:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:35:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:35:14 --> ArgumentCountError: Too few arguments to function App\Controllers\Test::getTestcategorieupdate(), 0 passed in C:\wamp64\www\pharmaloz\vendor\codeigniter4\framework\system\CodeIgniter.php on line 933 and exactly 2 expected
+[Method: GET, Route: test/testcategorieupdate]
+in APPPATH\Controllers\Test.php on line 65.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestcategorieupdate()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:35:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:35:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:35:53 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "Hygiène"
+[Method: GET, Route: test/testcategorieupdate/1/Hygi%C3%A8ne]
+in SYSTEMPATH\Router\Router.php on line 741.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('test/testcategorieupdate/1/Hygiène')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcategorieupdate/1/Hygiène')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 08:36:00 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "hygiène"
+[Method: GET, Route: test/testcategorieupdate/1/hygi%C3%A8ne]
+in SYSTEMPATH\Router\Router.php on line 741.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('test/testcategorieupdate/1/hygiène')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcategorieupdate/1/hygiène')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:36:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:36:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:44:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:44:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:44:43 --> ArgumentCountError: Too few arguments to function App\Controllers\Test::getTestcategoriedelete(), 0 passed in C:\wamp64\www\pharmaloz\vendor\codeigniter4\framework\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: GET, Route: test/testcategoriedelete]
+in APPPATH\Controllers\Test.php on line 81.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestcategoriedelete()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:44:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:49:10 --> ParseError: syntax error, unexpected token "echo", expecting "," or ";"
+[Method: GET, Route: test]
+in APPPATH\Controllers\Test.php on line 13.
+ 1 FCPATH\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\wamp64\\www\\pharmaloz\\vendor\\composer/../../app\\Controllers\\Test.php')
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controllers\\Test')
+ 3 SYSTEMPATH\Router\AutoRouterImproved.php(174): class_exists('\\App\\Controllers\\Test')
+ 4 SYSTEMPATH\Router\AutoRouterImproved.php(282): CodeIgniter\Router\AutoRouterImproved->searchFirstController()
+ 5 SYSTEMPATH\Router\Router.php(567): CodeIgniter\Router\AutoRouterImproved->getRoute('test', 'get')
+ 6 SYSTEMPATH\Router\Router.php(231): CodeIgniter\Router\Router->autoRoute('test')
+ 7 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test')
+ 8 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:49:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:49:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:49:17 --> ArgumentCountError: Too few arguments to function App\Controllers\Test::getTestcategoriereadid(), 0 passed in C:\wamp64\www\pharmaloz\vendor\codeigniter4\framework\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: GET, Route: test/testcategoriereadid]
+in APPPATH\Controllers\Test.php on line 53.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestcategoriereadid()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:49:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:50:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:50:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:50:59 --> ArgumentCountError: Too few arguments to function App\Controllers\Test::getTestcategoriereadnom(), 0 passed in C:\wamp64\www\pharmaloz\vendor\codeigniter4\framework\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: GET, Route: test/testcategoriereadnom]
+in APPPATH\Controllers\Test.php on line 65.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestcategoriereadnom()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:51:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:51:03 --> Error: Call to a member function exists() on null
+[Method: GET, Route: test/testcategoriereadnom/Soins]
+in APPPATH\Controllers\Test.php on line 68.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestcategoriereadnom('Soins')
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:51:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:51:17 --> Error: Call to a member function exists() on null
+[Method: GET, Route: test/testcategoriereadnom/Soins]
+in APPPATH\Controllers\Test.php on line 68.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestcategoriereadnom('Soins')
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:51:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:51:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:52:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:52:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:53:01 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "Beauté"
+[Method: GET, Route: test/testcategoriereadnom/Beaut%C3%A9]
+in SYSTEMPATH\Router\Router.php on line 741.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('test/testcategoriereadnom/Beauté')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcategoriereadnom/Beauté')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 08:54:00 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "Beauté"
+[Method: GET, Route: test/testcategoriereadnom/Beaut%C3%A9]
+in SYSTEMPATH\Router\Router.php on line 741.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('test/testcategoriereadnom/Beauté')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcategoriereadnom/Beauté')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 08:54:01 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "Beauté"
+[Method: GET, Route: test/testcategoriereadnom/Beaut%C3%A9]
+in SYSTEMPATH\Router\Router.php on line 741.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('test/testcategoriereadnom/Beauté')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcategoriereadnom/Beauté')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 08:55:15 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "Beauté"
+[Method: GET, Route: test/testcategoriereadnom/Beaut%C3%A9]
+in SYSTEMPATH\Router\Router.php on line 741.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('test/testcategoriereadnom/Beauté')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcategoriereadnom/Beauté')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 08:55:20 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "Beauté"
+[Method: GET, Route: test/testcategoriereadnom/Beaut%C3%A9]
+in SYSTEMPATH\Router\Router.php on line 741.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('test/testcategoriereadnom/Beauté')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcategoriereadnom/Beauté')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:55:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 08:56:34 --> ParseError: syntax error, unexpected token "echo", expecting "," or ";"
+[Method: GET, Route: test]
+in APPPATH\Controllers\Test.php on line 12.
+ 1 FCPATH\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\wamp64\\www\\pharmaloz\\vendor\\composer/../../app\\Controllers\\Test.php')
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controllers\\Test')
+ 3 SYSTEMPATH\Router\AutoRouterImproved.php(174): class_exists('\\App\\Controllers\\Test')
+ 4 SYSTEMPATH\Router\AutoRouterImproved.php(282): CodeIgniter\Router\AutoRouterImproved->searchFirstController()
+ 5 SYSTEMPATH\Router\Router.php(567): CodeIgniter\Router\AutoRouterImproved->getRoute('test', 'get')
+ 6 SYSTEMPATH\Router\Router.php(231): CodeIgniter\Router\Router->autoRoute('test')
+ 7 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test')
+ 8 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 08:56:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:59:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 08:59:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 09:16:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-10-07 09:19:41 --> Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Champ 'mail' inconnu dans field list (Connection: default, SQL: insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (68e4db2dbbfc2, Dupont, Jean, jean.dupont@example.com, $2y$10$0po4.0WyNXyVAOcvQn2J1.1XsKtqE7.TXTkGVY11u1wQTr2yKkQry, client))
+[Method: GET, Route: test/testutilisateurcreate]
+in FCPATH\vendor\illuminate\database\Connection.php on line 824.
+ 1 FCPATH\vendor\illuminate\database\Connection.php(778): Illuminate\Database\Connection->runQueryCallback('insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 2 FCPATH\vendor\illuminate\database\MySqlConnection.php(42): Illuminate\Database\Connection->run('insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 3 FCPATH\vendor\illuminate\database\Query\Processors\MySqlProcessor.php(35): Illuminate\Database\MySqlConnection->insert('insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...], 'id')
+ 4 FCPATH\vendor\illuminate\database\Query\Builder.php(3853): Illuminate\Database\Query\Processors\MySqlProcessor->processInsertGetId(Object(Illuminate\Database\Query\Builder), 'insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...], 'id')
+ 5 FCPATH\vendor\illuminate\database\Eloquent\Builder.php(2235): Illuminate\Database\Query\Builder->insertGetId([...], 'id')
+ 6 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1436): Illuminate\Database\Eloquent\Builder->__call('insertGetId', [...])
+ 7 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1401): Illuminate\Database\Eloquent\Model->insertAndSetId(Object(Illuminate\Database\Eloquent\Builder), [...])
+ 8 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1240): Illuminate\Database\Eloquent\Model->performInsert(Object(Illuminate\Database\Eloquent\Builder))
+ 9 APPPATH\Controllers\Test.php(91): Illuminate\Database\Eloquent\Model->save()
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestutilisateurcreate()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 09:19:41 --> [Caused by] PDOException: SQLSTATE[42S22]: Column not found: 1054 Champ 'mail' inconnu dans field list
+in FCPATH\vendor\illuminate\database\MySqlConnection.php on line 47.
+ 1 FCPATH\vendor\illuminate\database\MySqlConnection.php(47): PDO->prepare('insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)')
+ 2 FCPATH\vendor\illuminate\database\Connection.php(811): Illuminate\Database\MySqlConnection->Illuminate\Database\{closure}('insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...])
+ 3 FCPATH\vendor\illuminate\database\Connection.php(778): Illuminate\Database\Connection->runQueryCallback('insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 4 FCPATH\vendor\illuminate\database\MySqlConnection.php(42): Illuminate\Database\Connection->run('insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 5 FCPATH\vendor\illuminate\database\Query\Processors\MySqlProcessor.php(35): Illuminate\Database\MySqlConnection->insert('insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...], 'id')
+ 6 FCPATH\vendor\illuminate\database\Query\Builder.php(3853): Illuminate\Database\Query\Processors\MySqlProcessor->processInsertGetId(Object(Illuminate\Database\Query\Builder), 'insert into `utilisateurs` (`id`, `nom`, `prenom`, `mail`, `mdp`, `role`) values (?, ?, ?, ?, ?, ?)', [...], 'id')
+ 7 FCPATH\vendor\illuminate\database\Eloquent\Builder.php(2235): Illuminate\Database\Query\Builder->insertGetId([...], 'id')
+ 8 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1436): Illuminate\Database\Eloquent\Builder->__call('insertGetId', [...])
+ 9 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1401): Illuminate\Database\Eloquent\Model->insertAndSetId(Object(Illuminate\Database\Eloquent\Builder), [...])
+10 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1240): Illuminate\Database\Eloquent\Model->performInsert(Object(Illuminate\Database\Eloquent\Builder))
+11 APPPATH\Controllers\Test.php(91): Illuminate\Database\Eloquent\Model->save()
+12 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestutilisateurcreate()
+13 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+14 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+15 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 09:26:48 --> Illuminate\Database\QueryException: SQLSTATE[42S22]: Column not found: 1054 Champ 'id_1' inconnu dans field list (Connection: default, SQL: insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (68e4dcd8314bd, Crème hydratante, Hydrate la peau, 19.99, image.jpg, 50, 1))
+[Method: GET, Route: test/testproduitcreate]
+in FCPATH\vendor\illuminate\database\Connection.php on line 824.
+ 1 FCPATH\vendor\illuminate\database\Connection.php(778): Illuminate\Database\Connection->runQueryCallback('insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 2 FCPATH\vendor\illuminate\database\MySqlConnection.php(42): Illuminate\Database\Connection->run('insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 3 FCPATH\vendor\illuminate\database\Query\Processors\MySqlProcessor.php(35): Illuminate\Database\MySqlConnection->insert('insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...], 'id')
+ 4 FCPATH\vendor\illuminate\database\Query\Builder.php(3853): Illuminate\Database\Query\Processors\MySqlProcessor->processInsertGetId(Object(Illuminate\Database\Query\Builder), 'insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...], 'id')
+ 5 FCPATH\vendor\illuminate\database\Eloquent\Builder.php(2235): Illuminate\Database\Query\Builder->insertGetId([...], 'id')
+ 6 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1436): Illuminate\Database\Eloquent\Builder->__call('insertGetId', [...])
+ 7 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1401): Illuminate\Database\Eloquent\Model->insertAndSetId(Object(Illuminate\Database\Eloquent\Builder), [...])
+ 8 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1240): Illuminate\Database\Eloquent\Model->performInsert(Object(Illuminate\Database\Eloquent\Builder))
+ 9 APPPATH\Controllers\Test.php(182): Illuminate\Database\Eloquent\Model->save()
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestproduitcreate()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 09:26:48 --> [Caused by] PDOException: SQLSTATE[42S22]: Column not found: 1054 Champ 'id_1' inconnu dans field list
+in FCPATH\vendor\illuminate\database\MySqlConnection.php on line 47.
+ 1 FCPATH\vendor\illuminate\database\MySqlConnection.php(47): PDO->prepare('insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)')
+ 2 FCPATH\vendor\illuminate\database\Connection.php(811): Illuminate\Database\MySqlConnection->Illuminate\Database\{closure}('insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...])
+ 3 FCPATH\vendor\illuminate\database\Connection.php(778): Illuminate\Database\Connection->runQueryCallback('insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 4 FCPATH\vendor\illuminate\database\MySqlConnection.php(42): Illuminate\Database\Connection->run('insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 5 FCPATH\vendor\illuminate\database\Query\Processors\MySqlProcessor.php(35): Illuminate\Database\MySqlConnection->insert('insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...], 'id')
+ 6 FCPATH\vendor\illuminate\database\Query\Builder.php(3853): Illuminate\Database\Query\Processors\MySqlProcessor->processInsertGetId(Object(Illuminate\Database\Query\Builder), 'insert into `produits` (`id`, `nom`, `description`, `prix`, `image`, `stock`, `id_1`) values (?, ?, ?, ?, ?, ?, ?)', [...], 'id')
+ 7 FCPATH\vendor\illuminate\database\Eloquent\Builder.php(2235): Illuminate\Database\Query\Builder->insertGetId([...], 'id')
+ 8 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1436): Illuminate\Database\Eloquent\Builder->__call('insertGetId', [...])
+ 9 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1401): Illuminate\Database\Eloquent\Model->insertAndSetId(Object(Illuminate\Database\Eloquent\Builder), [...])
+10 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1240): Illuminate\Database\Eloquent\Model->performInsert(Object(Illuminate\Database\Eloquent\Builder))
+11 APPPATH\Controllers\Test.php(182): Illuminate\Database\Eloquent\Model->save()
+12 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestproduitcreate()
+13 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+14 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+15 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 09:28:32 --> Error: Object of class Illuminate\Database\Eloquent\Builder could not be converted to string
+[Method: GET, Route: test/testproduitcreate]
+in FCPATH\vendor\illuminate\database\Connection.php on line 718.
+ 1 FCPATH\vendor\illuminate\database\Connection.php(718): PDOStatement->bindValue(6, Object(Illuminate\Database\Eloquent\Builder), 2)
+ 2 FCPATH\vendor\illuminate\database\MySqlConnection.php(49): Illuminate\Database\Connection->bindValues(Object(PDOStatement), [...])
+ 3 FCPATH\vendor\illuminate\database\Connection.php(811): Illuminate\Database\MySqlConnection->Illuminate\Database\{closure}('insert into `produits` (`nom`, `description`, `prix`, `image`, `stock`, `categorie_id`) values (?, ?, ?, ?, ?, ?)', [...])
+ 4 FCPATH\vendor\illuminate\database\Connection.php(778): Illuminate\Database\Connection->runQueryCallback('insert into `produits` (`nom`, `description`, `prix`, `image`, `stock`, `categorie_id`) values (?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 5 FCPATH\vendor\illuminate\database\MySqlConnection.php(42): Illuminate\Database\Connection->run('insert into `produits` (`nom`, `description`, `prix`, `image`, `stock`, `categorie_id`) values (?, ?, ?, ?, ?, ?)', [...], Object(Closure))
+ 6 FCPATH\vendor\illuminate\database\Query\Processors\MySqlProcessor.php(35): Illuminate\Database\MySqlConnection->insert('insert into `produits` (`nom`, `description`, `prix`, `image`, `stock`, `categorie_id`) values (?, ?, ?, ?, ?, ?)', [...], 'id')
+ 7 FCPATH\vendor\illuminate\database\Query\Builder.php(3853): Illuminate\Database\Query\Processors\MySqlProcessor->processInsertGetId(Object(Illuminate\Database\Query\Builder), 'insert into `produits` (`nom`, `description`, `prix`, `image`, `stock`, `categorie_id`) values (?, ?, ?, ?, ?, ?)', [...], 'id')
+ 8 FCPATH\vendor\illuminate\database\Eloquent\Builder.php(2235): Illuminate\Database\Query\Builder->insertGetId([...], 'id')
+ 9 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1436): Illuminate\Database\Eloquent\Builder->__call('insertGetId', [...])
+10 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1401): Illuminate\Database\Eloquent\Model->insertAndSetId(Object(Illuminate\Database\Eloquent\Builder), [...])
+11 FCPATH\vendor\illuminate\database\Eloquent\Model.php(1240): Illuminate\Database\Eloquent\Model->performInsert(Object(Illuminate\Database\Eloquent\Builder))
+12 APPPATH\Controllers\Test.php(182): Illuminate\Database\Eloquent\Model->save()
+13 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestproduitcreate()
+14 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+15 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+16 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+18 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 09:34:39 --> Error: Call to undefined function App\Controllers\now()
+[Method: GET, Route: test/testcommandecreate]
+in APPPATH\Controllers\Test.php on line 225.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Test->getTestcommandecreate()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Test))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-07 09:36:37 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "validée"
+[Method: GET, Route: test/testcommandeupdate/1/valid%C3%A9e]
+in SYSTEMPATH\Router\Router.php on line 741.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('test/testcommandeupdate/1/validée')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('test/testcommandeupdate/1/validée')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-10-07 09:42:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 09:42:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-10-07 09:47:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
