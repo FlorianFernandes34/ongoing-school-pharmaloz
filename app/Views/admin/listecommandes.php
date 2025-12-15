@@ -1,0 +1,97 @@
+<main class="p-8">
+
+    <!-- BOUTONS -->
+    <div class="mb-6 flex items-center justify-between">
+        <!-- Bouton retour -->
+        <a href="<?= base_url('admin')?>" class="inline-flex items-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-sm transition">
+            <i class="fas fa-arrow-left mr-2"></i> Retour
+        </a>
+
+        <div class="flex items-center space-x-2">
+            <!-- Select pour le type de recherche -->
+            <select id="searchType" class="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition">
+                <option value="id">N° Commande</option>
+                <option value="email">Email</option>
+                <option value="client">Client</option>
+            </select>
+
+            <!-- Champ de recherche -->
+            <input type="text" id="searchCommande" placeholder="Rechercher..." class="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition" />
+        </div>
+    </div>
+
+
+    <!-- Liste des commandes -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <?php foreach ($commandes as $commande):?>
+            <div class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between border border-gray-100 hover:shadow-lg transition-all">
+                <div class="flex-1 space-y-2">
+                    <h2 class="text-lg font-semibold text-gray-800">Commande N°<?= $commande->id?></h2>
+                    <p id="statut<?= $commande->id?>"><span class="font-medium text-gray-600">Statut :</span> <?= $commande->statut?></p>
+                    <?php
+                        //Date au format francais
+                        $dateCommande = new DateTime($commande->date_heure);
+                        $dateFr = $dateCommande->format('d/m/Y H:i');
+                    ?>
+                    <p><span class="font-medium text-gray-600">Date de commande :</span> <?= $dateFr?></p>
+                    <?php
+                        //Calcul prix total commande
+                        $prixTotal = 0;
+                        foreach ($commande->produits as $produit) {
+                            $prixTotal += $produit->prix * $produit->pivot->quantite;
+                        }
+                    ?>
+                    <p><span class="font-medium text-gray-600">Prix total :</span> <?= $prixTotal?>€</p>
+                    <?php
+                        //Date au format francais
+                        $dateRetrait = new DateTime($commande->creneau_retrait);
+                        $dateFr = $dateRetrait->format('d/m/Y H:i');
+                    ?>
+                    <p><span class="font-medium text-gray-600">Créneau retrait :</span> <?= $dateFr?></p>
+                    <p class="mt-2 font-medium text-gray-700">Utilisateur :</p>
+                    <p class="text-gray-600"><?= $commande->utilisateur->nom ?> <?= $commande->utilisateur->prenom ?></p>
+                    <p class="text-gray-600"><?= $commande->utilisateur->email ?></p>
+                </div>
+                <div class="flex space-x-2 mt-4">
+                    <div class="relative flex-1" data-id="<?= $commande->id ?>">
+                        <button type="button" class="status-button w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg shadow flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+                            <span class="status-text"><?= $commande->statut ?></span>
+                            <i class="fas fa-chevron-down ml-2"></i>
+                        </button>
+                        <ul class="status-dropdown absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-10">
+                            <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Validée">Validée</li>
+                            <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Retirée">Retirée</li>
+                            <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Annulée">Annulée</li>
+                        </ul>
+                    </div>
+
+
+                    <a href="<?= base_url('admin/articlescomm/' . $commande->id)?>" class="flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg transition">
+                        <i class="fas fa-edit mr-1"></i> Voir les articles
+                    </a>
+                </div>
+            </div>
+        <?php endforeach;?>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-8 flex justify-center space-x-2">
+        <?php if($currentPage > 1): ?>
+            <a href="<?= base_url('admin/listecom/' . ($currentPage - 1)) ?>"
+               class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">&laquo; Précédent</a>
+        <?php endif; ?>
+
+        <?php for($i=1; $i<=$lastPage; $i++): ?>
+            <a href="<?= base_url('admin/listecom/' . $i) ?>"
+               class="px-3 py-1 <?= $currentPage==$i ? 'bg-blue-500 text-white' : 'bg-gray-200' ?> rounded hover:bg-gray-300">
+                <?= $i ?>
+            </a>
+        <?php endfor; ?>
+
+        <?php if($currentPage < $lastPage): ?>
+            <a href="<?= base_url('admin/listecom/' . ($currentPage + 1)) ?>"
+               class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Suivant &raquo;</a>
+        <?php endif; ?>
+    </div>
+
+</main>

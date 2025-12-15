@@ -64,9 +64,19 @@
                 'id' => 'prixProduit',
                 'placeholder' => '0.00',
                 'step' => '0.01',
-                'type' => 'number',
                 'required' => true
-            ]) ?>
+            ], 'number') ?>
+        </div>
+
+        <!-- STOCK -->
+        <div>
+            <?= form_label('Stock du produit', 'stockProduit', ['class' => 'block text-gray-700 font-semibold mb-2']) ?>
+            <?= form_input('stockProduit', '0', [
+                'class' => 'w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'id' => 'prixProduit',
+                'placeholder' => '0',
+                'required' => true
+            ], 'number') ?>
         </div>
 
         <!-- IMAGE -->

@@ -1,9 +1,16 @@
 <main class="p-8">
 
-    <!-- Bouton Ajouter un produit -->
-    <div class="mb-6 flex justify-end">
-        <?= anchor('admin/ajoutproduit', '<i class="fas fa-plus mr-2"></i> Ajouter un produit', ['class' => 'inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition']
-        ) ?>
+    <!-- BOUTON RETOUR -->
+    <div class="mb-6 flex justify-between">
+        <!-- Bouton Retour à gauche -->
+        <?= anchor('admin', '<i class="fas fa-arrow-left mr-2"></i> Retour', [
+            'class' => "inline-flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg shadow transition"
+        ]) ?>
+
+        <!-- Bouton Ajouter un produit à droite -->
+        <?= anchor('admin/ajoutproduit', '<i class="fas fa-plus mr-2"></i> Ajouter un produit', [
+            'class' => 'inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition'
+        ]) ?>
     </div>
 
     <div>
@@ -26,21 +33,23 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <?php foreach ($produits as $produit): ?>
             <div class='bg-white rounded-lg shadow-md p-4 flex flex-col h-full'>
-                <img src='https://via.placeholder.com/400x200'
-                     alt='<?= $produit->nom ?>'
-                     class='rounded-lg w-full h-40 object-cover'>
+                <?= img('public/img/produits/' . $produit->image . '?t=' . time(), '', ['class' => 'rounded-lg w-full h-40 object-cover', 'alt' => $produit->nom])?>
 
                 <div class='flex-1 mt-3'>
                     <h2 class='text-xl font-bold text-gray-800'><?= $produit->nom ?></h2>
                     <p class='text-gray-600 mt-1'><?= $produit->description ?></p>
                     <p class='text-gray-800 font-semibold mt-1'>Prix : <?= $produit->prix ?> €</p>
                     <p class='text-gray-500 mt-1'>Catégorie : <?= $produit->categorie->nom ?></p>
+                    <p class='text-gray-500 mt-1'>Stock : <?= $produit->stock ?></p>
                 </div>
 
                 <div class='flex space-x-2 mt-4'>
                     <?= anchor('admin/modifproduit/' . $produit->id, '<i class="fas fa-edit mr-2"></i> Modifier', ['class' => 'flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition flex-1']) ?>
 
-                    <?= anchor('admin/supprimerproduit/' . $produit->id, '<i class="fas fa-trash mr-2"></i> Supprimer', ['class' => 'flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition flex-1']) ?>
+                    <?= anchor('admin/supprimerproduit/' . $produit->id, '<i class="fas fa-trash mr-2"></i> Supprimer', [
+                            'class' => 'flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition flex-1',
+                            'onclick' => 'return confirm("Voulez vous vraiment supprimer ce produit ?")'
+                    ]) ?>
                 </div>
             </div>
         <?php endforeach; ?>

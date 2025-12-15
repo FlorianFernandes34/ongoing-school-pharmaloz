@@ -11,17 +11,12 @@
         $input = [
             'class' => 'w-64 bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg shadow-md text-center transition'
         ];
-        echo anchor('admin/ajoutcateg', 'Liste des catégories', $input);
+        echo anchor('admin/listecateg', 'Liste des catégories', $input);
 
         $input = [
-            'class' => 'w-64 bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg shadow-md text-center transition'
+            'class' => 'w-64 bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-lg shadow-md text-center transition'
         ];
-        echo anchor('admin/ajoutcateg', 'Ajouter une catégorie', $input);
-
-        $input = [
-            'class' => 'w-64 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-6 rounded-lg shadow-md text-center transition'
-        ];
-        echo anchor('admin/modifcateg', 'Modifer une catégorie', $input);
+        echo anchor('admin/listecom/1', 'Liste des commandes', $input);
 
         $input = [
             'class' => 'w-64 bg-red-500 hover:bg-red-600 text-white font-semibold py-4 px-6 rounded-lg shadow-md text-center transition'
