@@ -97,7 +97,7 @@ class Admin extends BaseController
                 if ($image->getSize() <= $maximumSize) {
                     // Génération d'un nom unique pour le fichier
                     $nomImg = $image->getRandomName();
-                    $image->move(FCPATH . 'img/produits', $nomImg);
+                    $image->move(FCPATH . 'public/img/produits', $nomImg);
 
                     $produit->image = $nomImg;
                     $produit->save();
@@ -433,13 +433,11 @@ class Admin extends BaseController
                     $cmd = $commandes->where('id', $query)->first();
                     $commandes = $cmd ? collect([$cmd]) : collect([]);
                     break;
-
                 case 'email':
                     $commandes = $commandes->whereHas('utilisateur', function($q) use($query) {
                         $q->where('email', 'LIKE', "%$query%");
                     })->get();
                     break;
-
                 case 'client':
                     $commandes = $commandes->whereHas('utilisateur', function($q) use($query) {
                         // on cherche nom OU prénom correspondant
@@ -447,7 +445,9 @@ class Admin extends BaseController
                             ->orWhere('prenom', 'LIKE', "%$query%");
                     })->get();
                     break;
-
+                case 'statut':
+                    $commandes = $commandes->where('statut', 'LIKE', "%$query%")->get();
+                    break;
                 default:
                     $commandes = collect([]);
                     break;
@@ -480,9 +480,14 @@ class Admin extends BaseController
         return $this->response->setJSON(['commandes' => $result, 'success' => true]);
     }
 
-    public function getArticlescomm($id) {
-        // Page actuelle depuis l'URL, par défaut 1
+    public function getListeproduitscomm($id) {
+        $session = session();
         $commande = Commande::find($id);
+
+        if (!$commande) {
+            $session->setFlashdata('errorCommande', 'Cette commande n\'existe pas.');
+            return redirect()->back();
+        }
 
         $data = [
             "categories" => Categorie::all(),
@@ -492,8 +497,78 @@ class Admin extends BaseController
 
         return view('template/head', $data)
             . view('template/header', $data)
-            . view('admin/articlescommande', $data)
+            . view('admin/listeproduitscommande', $data)
             . view('template/footer', $data);
+    }
+
+    public function getAjouterproduitcommande($id) {
+        $commande = Commande::find($id);
+        $produits = Produit::all();
+
+        $data = [
+            "categories" => Categorie::all(),
+            "commande" => $commande,
+            "produits" => $produits,
+            "page" => 'Liste des produits',
+        ];
+
+        return view('template/head', $data)
+            . view('template/header', $data)
+            . view('admin/ajouterproduitcommande', $data)
+            . view('template/footer', $data);
+    }
+
+    public function getInfosproduits($id) {
+        if (!$id) {
+            return json_encode([
+                'success' => false
+            ]);
+        }
+
+        $produit = Produit::find($id);
+
+        if (!$produit) {
+            return json_encode([
+                'success' => false
+            ]);
+        }
+
+        return json_encode([
+            'success' => true,
+            'denomination' => $produit->nom,
+            'puProduit' => $produit->prix,
+        ]);
+    }
+
+    public function postAjoutproduitcommande() {
+        $session = session();
+        $idC = $this->request->getPost('idCommande');
+        $idP = $this->request->getPost('produitSelect');
+        $quantite = $this->request->getPost('qte');
+
+        $commande = Commande::find($idC);
+
+        if (!$commande) {
+            $session->setFlashdata('errorAddPC', 'Cette commande n\'existe pas.');
+            return redirect()->back();
+        }
+
+        $produit = Produit::find($idP);
+
+        if (!$produit) {
+            $session->setFlashdata('errorAddPC', 'Ce produit n\'existe pas.');
+            return redirect()->to('admin/ajouterproduitcommande/' . $idC);
+        }
+
+        $commande->produits()->attach($produit, ['quantite' => $quantite]);
+
+        if ($commande->save()) {
+            $session->setFlashdata('successAddPC', 'Le produit a été ajouté avec succès.');
+        }else {
+            $session->setFlashdata('errorAddPC', 'Une erreur est survenue lors de l\'ajout du produit. Veuillez réessayer.');
+        }
+
+        return redirect()->to('admin/ajouterproduitcommande/' . $idC);
     }
 
 

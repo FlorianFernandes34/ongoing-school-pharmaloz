@@ -13,6 +13,7 @@
                 <option value="id">N° Commande</option>
                 <option value="email">Email</option>
                 <option value="client">Client</option>
+                <option value="statut">Statut</option>
             </select>
 
             <!-- Champ de recherche -->
@@ -20,8 +21,25 @@
         </div>
     </div>
 
+    <div>
+        <?php
+        $session = session();
+        if ($session->getFlashdata('errorCommande')) {
+            echo '
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                    <span class="block sm:inline">' . $session->getFlashdata("errorCommande") . '</span>
+                </div>';
+        }
+        ?>
+    </div>
 
     <!-- Liste des commandes -->
+    <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-600 mb-1">Rechercher un article</label>
+        <input type="text" id="searchProduct" placeholder="Ex : Paracétamol, gel, ibuprofène..."
+               class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none" />
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <?php foreach ($commandes as $commande):?>
             <div class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between border border-gray-100 hover:shadow-lg transition-all">
@@ -66,12 +84,20 @@
                     </div>
 
 
-                    <a href="<?= base_url('admin/articlescomm/' . $commande->id)?>" class="flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg transition">
+                    <a href="<?= base_url('admin/listeproduitscomm/' . $commande->id)?>" class="flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg transition">
                         <i class="fas fa-edit mr-1"></i> Voir les articles
                     </a>
                 </div>
             </div>
         <?php endforeach;?>
+    </div>
+    <div id="emptyState" class="hidden flex items-center justify-center min-h-[40vh]">
+        <div class="text-center text-gray-500">
+            <i class="fas fa-search text-4xl mb-4 text-gray-300"></i>
+            <p class="text-lg font-medium">
+                Aucune commande correspondant à ces critères
+            </p>
+        </div>
     </div>
 
     <!-- Pagination -->

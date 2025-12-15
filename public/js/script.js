@@ -1,133 +1,244 @@
-//MISE A JOUR DU STATUT
-
-document.addEventListener('DOMContentLoaded', initUpdateDropdowns);
+/*********************************
+ *  MISE À JOUR DU STATUT COMMANDE
+ *********************************/
+document.addEventListener('DOMContentLoaded', () => {
+    initUpdateDropdowns();
+    initRechercheCommandes();
+    initProduitCommande();
+    initGestionQuantite();
+});
 
 function initUpdateDropdowns() {
     const buttons = document.querySelectorAll('.status-button');
+    if (!buttons.length) return;
 
     buttons.forEach(button => {
-        const container = button.parentElement; // conteneur avec data-id
+        const container = button.parentElement;
         const dropdown = button.nextElementSibling;
 
-        // Toggle dropdown
-        button.addEventListener('click', () => {
+        button.addEventListener('click', e => {
+            e.stopPropagation();
             dropdown.classList.toggle('hidden');
         });
 
-        // Quand on clique sur un item
         dropdown.querySelectorAll('.dropdown-item').forEach(item => {
-            item.addEventListener('click', async function () {
-                const newStatus = this.dataset.value;
+            item.addEventListener('click', async () => {
+                const newStatus = item.dataset.value;
                 const commandeId = container.dataset.id;
 
-                // Update visuel
                 button.querySelector('.status-text').textContent = newStatus;
-
-                // mettre à jour le texte "Statut : ..." en haut
-                const elementStatut = document.getElementById('statut' + commandeId)
-                if (elementStatut) {
-                    elementStatut.innerHTML = "<span class=\"font-medium text-gray-600\">Statut :</span> " + newStatus;
-                }
+                const elementStatut = document.getElementById('statut' + commandeId);
+                if (elementStatut) elementStatut.innerHTML = `<span class="font-medium text-gray-600">Statut :</span> ${newStatus}`;
 
                 dropdown.classList.add('hidden');
 
-                // AJAX pour la BDD
-                const data = await fetch('https://localhost/pharmaloz/admin/updatestatut', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({
-                        idCommande: commandeId,
-                        statutCommande: newStatus
-                    })
-                });
+                try {
+                    const res = await fetch('http://localhost/pharmaloz/admin/updatestatut', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({ idCommande: commandeId, statutCommande: newStatus })
+                    });
 
-
-                const response = await data.json();
-
-                if (response.success) {
-                    alert('Statut mis à jour avec succès.')
-                } else {
-                    alert('Une erreur est survenue lors de la mise à jour du statut.')
+                    const response = await res.json();
+                    if (!response.success) alert('Erreur lors de la mise à jour du statut.');
+                } catch (e) {
+                    console.error(e);
+                    alert('Erreur réseau.');
                 }
             });
         });
 
-        // Fermer dropdown si clic en dehors
         document.addEventListener('click', e => {
-            if (!container.contains(e.target)) {
-                dropdown.classList.add('hidden');
-            }
+            if (!container.contains(e.target)) dropdown.classList.add('hidden');
         });
     });
 }
 
-//RECHERCHE DES COMMANDES
+/*********************************
+ *  RECHERCHE COMMANDES
+ *********************************/
+function initRechercheCommandes() {
+    const searchInput = document.getElementById('searchCommande');
+    const searchType = document.getElementById('searchType');
+    if (!searchInput || !searchType) return;
 
-const searchInput = document.getElementById('searchCommande');
-const searchType = document.getElementById('searchType');
+    searchInput.addEventListener('input', async () => {
+        const query = searchInput.value.trim();
+        const type = searchType.value;
+        const commandesContainer = document.querySelector('.grid');
+        const emptyState = document.getElementById('emptyState');
 
-searchInput.addEventListener('input', async function() {
-    const query = this.value.trim();
-    const type = searchType.value;
+        try {
+            const res = await fetch('http://localhost/pharmaloz/admin/searchcommandes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ query, type })
+            });
 
-    const commandesContainer = document.querySelector('.grid');
+            const response = await res.json();
+            commandesContainer.innerHTML = '';
 
-    // On envoie la requête même si query est vide
+            if (response.commandes && response.commandes.length > 0) {
+                emptyState.classList.add('hidden');
+                commandesContainer.classList.remove('hidden');
+
+                response.commandes.forEach(cmd => {
+                    commandesContainer.innerHTML += `
+                        <div class="bg-white rounded-xl shadow-md p-5 border border-gray-100">
+                            <h2 class="text-lg font-semibold">Commande N°${cmd.id}</h2>
+                            <p id="statut${cmd.id}">
+                                <span class="font-medium">Statut :</span> ${cmd.statut}
+                            </p>
+                        </div>`;
+                });
+
+                initUpdateDropdowns();
+            } else {
+                commandesContainer.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Erreur lors de la recherche.');
+        }
+    });
+}
+
+/*********************************
+ *  AJOUT PRODUIT À COMMANDE
+ *********************************/
+function initProduitCommande() {
+    const selectProduit = document.getElementById('produitSelect');
+    const qteInput = document.getElementById('qteInput');
+    const searchInput = document.getElementById('searchProduit');
+    if (!selectProduit || !qteInput) return;
+
+    const options = Array.from(selectProduit.options);
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const value = searchInput.value.toLowerCase();
+            let firstVisible = null;
+            options.forEach(option => {
+                const match = option.text.toLowerCase().includes(value);
+                option.hidden = !match;
+                if (match && !firstVisible) firstVisible = option;
+            });
+            if (firstVisible) {
+                selectProduit.value = firstVisible.value;
+                changeProduitInfos();
+            }
+        });
+    }
+
+    selectProduit.addEventListener('change', changeProduitInfos);
+    qteInput.addEventListener('input', changeProduitTotal);
+
+    if (selectProduit.value) changeProduitInfos();
+}
+
+async function changeProduitInfos() {
+    const selectProduit = document.getElementById('produitSelect');
+    const id = selectProduit.value;
+    if (!id) return;
+
     try {
-        const res = await fetch('https://localhost/pharmaloz/admin/searchcommandes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                query: query,
-                type: type
-            })// query vide = toutes commandes côté serveur
+        const res = await fetch(`http://localhost/pharmaloz/admin/infosproduits/${id}`);
+        const data = await res.json();
+        if (!data.success) return;
+
+        const denomination = document.getElementById('denominationProduit');
+        const puElement = document.getElementById('produitPu');
+
+        denomination.innerHTML = `<span class="font-medium">Produit :</span> ${data.denomination}`;
+        puElement.innerHTML = `<span class="font-medium">Prix unitaire :</span> ${data.puProduit} €`;
+        puElement.dataset.pu = data.puProduit;
+
+        changeProduitTotal();
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function changeProduitTotal() {
+    const qteInput = document.getElementById('qteInput');
+    const puElement = document.getElementById('produitPu');
+    if (!qteInput || !puElement) return;
+
+    const qte = parseInt(qteInput.value, 10) || 0;
+    const pu = parseFloat(puElement.dataset.pu) || 0;
+
+    document.getElementById('qteProduit').innerHTML =
+        `<span class="font-medium">Quantité :</span> ${qte}`;
+    document.getElementById('total').innerHTML =
+        `<span class="font-medium">Total :</span> ${(qte * pu).toFixed(2)} €`;
+}
+
+/*********************************
+ *  GESTION QUANTITE + SUPPRESSION PRODUITS
+ *********************************/
+function initGestionQuantite() {
+    const rows = document.querySelectorAll('tbody tr');
+    if (!rows.length) return;
+
+    rows.forEach(row => {
+        const input = row.querySelector('input[type="number"]');
+        const btnPlus = row.querySelector('.qty-plus');
+        const btnMinus = row.querySelector('.qty-minus');
+        const btnDelete = row.querySelector('.delete-article');
+        const articleId = row.dataset.articleId;
+
+        // Incrément
+        if (btnPlus) btnPlus.addEventListener('click', () => {
+            input.value = parseInt(input.value || 0) + 1;
+            updateQuantite(articleId, input.value);
         });
 
-        const response = await res.json();
+        // Décrément
+        if (btnMinus) btnMinus.addEventListener('click', () => {
+            input.value = Math.max(0, parseInt(input.value || 0) - 1);
+            updateQuantite(articleId, input.value);
+        });
 
-        commandesContainer.innerHTML = ''; // on vide avant d'ajouter
+        // Supprimer produit
+        if (btnDelete) btnDelete.addEventListener('click', () => {
+            if(confirm("Supprimer ce produit de la commande ?")) {
+                row.remove();
+                deleteProduit(articleId);
+            }
+        });
 
-        if (response.commandes && response.commandes.length > 0) {
-            response.commandes.forEach(cmd => {
-                commandesContainer.innerHTML += `
-                <div class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between border border-gray-100 hover:shadow-lg transition-all">
-                    <div class="flex-1 space-y-2">
-                        <h2 class="text-lg font-semibold text-gray-800">Commande N°${cmd.id}</h2>
-                        <p id="statut${cmd.id}"><span class="font-medium text-gray-600">Statut :</span> ${cmd.statut}</p>
-                        <p><span class="font-medium text-gray-600">Date de commande :</span> ${cmd.date_heure}</p>
-                        <p><span class="font-medium text-gray-600">Prix total :</span> ${cmd.prix_total}€</p>
-                        <p><span class="font-medium text-gray-600">Créneau retrait :</span> ${cmd.creneau_retrait}</p>
-                        <p class="mt-2 font-medium text-gray-700">Utilisateur :</p>
-                        <p class="text-gray-600">${cmd.utilisateur.nom} ${cmd.utilisateur.prenom}</p>
-                        <p class="text-gray-600">${cmd.utilisateur.email}</p>
+        // Input manuel
+        if (input) input.addEventListener('input', () => {
+            if(parseInt(input.value) < 0) input.value = 0;
+            updateQuantite(articleId, input.value);
+        });
+    });
+}
 
-                        <div class="flex space-x-2 mt-4">
-                            <div class="relative flex-1" data-id="${cmd.id}">
-                                <button type="button" class="status-button w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg shadow flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
-                                    <span class="status-text">${cmd.statut}</span>
-                                    <i class="fas fa-chevron-down ml-2"></i>
-                                </button>
-                                <ul class="status-dropdown absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-10">
-                                    <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Validée">Validée</li>
-                                    <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Retirée">Retirée</li>
-                                    <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Annulée">Annulée</li>
-                                </ul>
-                            </div>
-
-                            <a href="https://localhost/pharmaloz/admin/articlescomm/${cmd.id}" class="flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg transition">
-                                <i class="fas fa-edit mr-1"></i> Voir les articles
-                            </a>
-                        </div>
-                    </div>
-                </div>`;
-            });
-            initUpdateDropdowns();
-        } else {
-            commandesContainer.innerHTML = '<p>Aucune commande correspondant à ces critères n\'a été trouvée.</p>';
+/* ================================
+   AJAX côté serveur
+================================ */
+async function updateQuantite(articleId, quantite) {
+    try {
+        const res = await fetch(`/admin/updatequantitecommande/${articleId}/${quantite}`);
+        const data = await res.json();
+        if (!data.success) {
+            console.error('Une erreur est survenue.');
         }
-    } catch (err) {
-        console.error(err);
-        alert('Une erreur est survenue lors de la recherche.');
+    } catch (e) {
+        console.error(e);
     }
-});
+}
 
+async function deleteProduit(articleId) {
+    try {
+        const res = await fetch(`/admin/deleteproduitcommande/${articleId}`);
+        const data = await res.json();
+        if(!data.success) {
+            console.error('Erreur suppression produit');
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
