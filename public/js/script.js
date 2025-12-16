@@ -1,3 +1,6 @@
+const base_url = "http://localhost/pharmaloz";
+const base_url_api = "http://localhost/pharmaloz/api/";
+
 /*********************************
  *  MISE À JOUR DU STATUT COMMANDE
  *********************************/
@@ -33,7 +36,7 @@ function initUpdateDropdowns() {
                 dropdown.classList.add('hidden');
 
                 try {
-                    const res = await fetch('http://localhost/pharmaloz/admin/updatestatut', {
+                    const res = await fetch(base_url_api + 'updatestatut', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: new URLSearchParams({ idCommande: commandeId, statutCommande: newStatus })
@@ -69,7 +72,7 @@ function initRechercheCommandes() {
         const emptyState = document.getElementById('emptyState');
 
         try {
-            const res = await fetch('http://localhost/pharmaloz/admin/searchcommandes', {
+            const res = await fetch(base_url_api + 'searchcommandes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({ query, type })
@@ -84,11 +87,82 @@ function initRechercheCommandes() {
 
                 response.commandes.forEach(cmd => {
                     commandesContainer.innerHTML += `
-                        <div class="bg-white rounded-xl shadow-md p-5 border border-gray-100">
-                            <h2 class="text-lg font-semibold">Commande N°${cmd.id}</h2>
-                            <p id="statut${cmd.id}">
-                                <span class="font-medium">Statut :</span> ${cmd.statut}
-                            </p>
+                        <div class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between border border-gray-100 hover:shadow-lg transition-all">
+                            <div class="flex-1 space-y-2">
+                                <h2 class="text-lg font-semibold text-gray-800">
+                                    Commande N°${cmd.id}
+                                </h2>
+            
+                                <p id="statut<?= $commande->id ?>">
+                                    <span class="font-medium text-gray-600">Statut :</span>
+                                    ${cmd.statut}
+                                </p>
+            
+                                <p>
+                                    <span class="font-medium text-gray-600">Date commande :</span>
+                                    ${cmd.date_heure}
+                                </p>
+            
+                                <?php
+                                $prixTotal = 0;
+                                foreach ($commande->produits as $produit) {
+                                    $prixTotal += $produit->prix * $produit->pivot->quantite;
+                                }
+                                ?>
+                                <p>
+                                    <span class="font-medium text-gray-600">Prix total :</span>
+                                    <?= $prixTotal ?>€
+                                </p>
+            
+                                <?php
+                                $dateRetrait = new DateTime($commande->creneau_retrait);
+                                $dateFr = $dateRetrait->format('d/m/Y H:i');
+                                ?>
+                                <p>
+                                    <span class="font-medium text-gray-600">Créneau retrait :</span>
+                                    <?= $dateFr ?>
+                                </p>
+            
+                                <p class="mt-2 font-medium text-gray-700">Utilisateur :</p>
+                                <p class="text-gray-600">
+                                    <?= $commande->utilisateur->nom ?>
+                                    <?= $commande->utilisateur->prenom ?>
+                                </p>
+                                <p class="text-gray-600"><?= $commande->utilisateur->email ?></p>
+                            </div>
+            
+                            <!-- BOUTONS -->
+                            <div class="flex space-x-2 mt-4">
+            
+                                <!-- STATUT -->
+                                <div class="relative flex-1" data-id="<?= $commande->id ?>">
+                                    <button type="button"
+                                            class="status-button w-full h-10 bg-blue-500 hover:bg-blue-600 text-white font-medium px-3 rounded-lg shadow
+                                               flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+                                        <span class="status-text flex-1 text-center">
+                                            <?= $commande->statut ?>
+                                        </span>
+                                        <i class="fas fa-chevron-down ml-2"></i>
+                                    </button>
+            
+                                    <ul
+                                            class="status-dropdown absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-10">
+                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                            data-value="Validée">Validée</li>
+                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                            data-value="Retirée">Retirée</li>
+                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                            data-value="Annulée">Annulée</li>
+                                    </ul>
+                                </div>
+            
+                                <!-- VOIR ARTICLES -->
+                                <a href="<?= base_url('commgest/listeproduitscomm/' . $commande->id) ?>"
+                                   class="flex-1 h-10 min-w-0 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 rounded-lg transition whitespace-nowrap">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Voir les articles</span>
+                                </a>
+                            </div>
                         </div>`;
                 });
 
@@ -143,7 +217,7 @@ async function changeProduitInfos() {
     if (!id) return;
 
     try {
-        const res = await fetch(`http://localhost/pharmaloz/admin/infosproduits/${id}`);
+        const res = await fetch( base_url_api + `infosproduits/${id}`);
         const data = await res.json();
         if (!data.success) return;
 
@@ -205,6 +279,10 @@ function initGestionQuantite() {
             if(confirm("Supprimer ce produit de la commande ?")) {
                 row.remove();
                 deleteProduit(articleId);
+                if (document.querySelectorAll('tbody tr').length === 0) {
+                    alert('La commande est maintenant vide et a été annulée.');
+                    window.location.href = 'http://localhost/pharmaloz/commgest/listecom/1';
+                }
             }
         });
 
@@ -216,15 +294,36 @@ function initGestionQuantite() {
     });
 }
 
+/*********************************
+ *  FONCTION PERMETTANT LA RECUPERATION DE L'ID COMMANDE (update et delete article)
+ *********************************/
+
+function getCommandeId() {
+    const main = document.querySelector('main[data-commande-id]');
+
+    if (!main) {
+        return;
+    }
+
+    return main.dataset.commandeId;
+}
+
+
 /* ================================
-   AJAX côté serveur
+*  AJAX côté serveur
 ================================ */
 async function updateQuantite(articleId, quantite) {
+    const commandeId = getCommandeId();
+
+    if (!commandeId) {
+        return
+    }
+
     try {
-        const res = await fetch(`/admin/updatequantitecommande/${articleId}/${quantite}`);
+        const res = await fetch(base_url_api + `updatequantitearticlefromcommande/${commandeId}/${articleId}/${quantite}`);
         const data = await res.json();
         if (!data.success) {
-            console.error('Une erreur est survenue.');
+            alert('Une erreur est survenue.');
         }
     } catch (e) {
         console.error(e);
@@ -232,8 +331,14 @@ async function updateQuantite(articleId, quantite) {
 }
 
 async function deleteProduit(articleId) {
+    const commandeId = getCommandeId();
+
+    if (!commandeId) {
+        return
+    }
+
     try {
-        const res = await fetch(`/admin/deleteproduitcommande/${articleId}`);
+        const res = await fetch(base_url_api + `deletearticlefromcommande/${commandeId}/${articleId}`);
         const data = await res.json();
         if(!data.success) {
             console.error('Erreur suppression produit');
