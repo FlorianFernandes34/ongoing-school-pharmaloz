@@ -29,10 +29,10 @@
                     if ($session->get('isAdmin')) {
                         echo anchor('admin', '<i class="fa-solid fa-user"></i>');
                     }else {
-                        echo  anchor('login/account', '<i class="fa-solid fa-user"></i>', ['class' => 'hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50']);
+                        echo  anchor('auth/account', '<i class="fa-solid fa-user"></i>', ['class' => 'hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50']);
                     }
                 }else {
-                    echo anchor('login', '<i class="fa-solid fa-user"></i>', ['class' => 'hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50']);
+                    echo anchor('auth/connexion', '<i class="fa-solid fa-user"></i>', ['class' => 'hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50']);
                 }
             ?>
             <a href="<?= base_url('panier')?>" class="relative px-3 py-2 rounded-lg transition hover:bg-blue-50">

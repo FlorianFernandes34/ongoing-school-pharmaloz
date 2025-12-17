@@ -1,5 +1,5 @@
 const base_url = "http://localhost/pharmaloz";
-const base_url_api = "http://localhost/pharmaloz/api/";
+const base_url_ajax = "http://localhost/pharmaloz/ajax/";
 
 /*********************************
  *  MISE À JOUR DU STATUT COMMANDE
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initRechercheCommandes();
     initProduitCommande();
     initGestionQuantite();
+    deleteCompte();
 });
 
 function initUpdateDropdowns() {
@@ -29,21 +30,26 @@ function initUpdateDropdowns() {
                 const newStatus = item.dataset.value;
                 const commandeId = container.dataset.id;
 
-                button.querySelector('.status-text').textContent = newStatus;
                 const elementStatut = document.getElementById('statut' + commandeId);
-                if (elementStatut) elementStatut.innerHTML = `<span class="font-medium text-gray-600">Statut :</span> ${newStatus}`;
 
                 dropdown.classList.add('hidden');
 
                 try {
-                    const res = await fetch(base_url_api + 'updatestatut', {
+                    const res = await fetch(base_url_ajax + 'updatestatut', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: new URLSearchParams({ idCommande: commandeId, statutCommande: newStatus })
                     });
 
                     const response = await res.json();
-                    if (!response.success) alert('Erreur lors de la mise à jour du statut.');
+                    if (!response.success) {
+                        alert(response.message);
+                    }else {
+                        alert(response.message);
+                        if (elementStatut) elementStatut.innerHTML = `<span class="font-medium text-gray-600">Statut :</span> ${newStatus}`;
+                        button.querySelector('.status-text').textContent = newStatus;
+                    }
+
                 } catch (e) {
                     console.error(e);
                     alert('Erreur réseau.');
@@ -72,7 +78,7 @@ function initRechercheCommandes() {
         const emptyState = document.getElementById('emptyState');
 
         try {
-            const res = await fetch(base_url_api + 'searchcommandes', {
+            const res = await fetch(base_url_ajax + 'searchcommandes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({ query, type })
@@ -103,32 +109,20 @@ function initRechercheCommandes() {
                                     ${cmd.date_heure}
                                 </p>
             
-                                <?php
-                                $prixTotal = 0;
-                                foreach ($commande->produits as $produit) {
-                                    $prixTotal += $produit->prix * $produit->pivot->quantite;
-                                }
-                                ?>
-                                <p>
                                     <span class="font-medium text-gray-600">Prix total :</span>
-                                    <?= $prixTotal ?>€
+                                    ${cmd.prix_total}€
                                 </p>
             
-                                <?php
-                                $dateRetrait = new DateTime($commande->creneau_retrait);
-                                $dateFr = $dateRetrait->format('d/m/Y H:i');
-                                ?>
-                                <p>
                                     <span class="font-medium text-gray-600">Créneau retrait :</span>
-                                    <?= $dateFr ?>
+                                    ${cmd.dateFrRetrait}
                                 </p>
             
                                 <p class="mt-2 font-medium text-gray-700">Utilisateur :</p>
                                 <p class="text-gray-600">
-                                    <?= $commande->utilisateur->nom ?>
-                                    <?= $commande->utilisateur->prenom ?>
+                                    ${cmd.utilisateur.nom}
+                                    ${cmd.utilisateur.prenom}
                                 </p>
-                                <p class="text-gray-600"><?= $commande->utilisateur->email ?></p>
+                                <p class="text-gray-600">${cmd.utilisateur.email}</p>
                             </div>
             
                             <!-- BOUTONS -->
@@ -217,7 +211,7 @@ async function changeProduitInfos() {
     if (!id) return;
 
     try {
-        const res = await fetch( base_url_api + `infosproduits/${id}`);
+        const res = await fetch( base_url_ajax + `infosproduits/${id}`);
         const data = await res.json();
         if (!data.success) return;
 
@@ -308,10 +302,9 @@ function getCommandeId() {
     return main.dataset.commandeId;
 }
 
-
-/* ================================
+/*********************************
 *  AJAX côté serveur
-================================ */
+ *********************************/
 async function updateQuantite(articleId, quantite) {
     const commandeId = getCommandeId();
 
@@ -320,7 +313,7 @@ async function updateQuantite(articleId, quantite) {
     }
 
     try {
-        const res = await fetch(base_url_api + `updatequantitearticlefromcommande/${commandeId}/${articleId}/${quantite}`);
+        const res = await fetch(base_url_ajax + `updatequantitearticlefromcommande/${commandeId}/${articleId}/${quantite}`);
         const data = await res.json();
         if (!data.success) {
             alert('Une erreur est survenue.');
@@ -338,7 +331,7 @@ async function deleteProduit(articleId) {
     }
 
     try {
-        const res = await fetch(base_url_api + `deletearticlefromcommande/${commandeId}/${articleId}`);
+        const res = await fetch(base_url_ajax + `deletearticlefromcommande/${commandeId}/${articleId}`);
         const data = await res.json();
         if(!data.success) {
             console.error('Erreur suppression produit');
@@ -346,4 +339,77 @@ async function deleteProduit(articleId) {
     } catch (e) {
         console.error(e);
     }
+}
+
+/*********************************
+ *  GESTION DES COMPTES (ADMIN)
+ *********************************/
+
+async function deleteCompte() {
+    const deleteButtons = document.querySelectorAll('.delete-compte');
+
+    deleteButtons.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const row = btn.closest('tr');
+            const compteId = row.dataset.id;
+
+            if (!confirm('Voulez vous supprimer ce compte ?')) return;
+
+            if(!confirm('Voulez vous vraiment supprimer ce compte ? Cette action est irréversible.')) return;
+
+            try {
+                const res = await fetch(base_url_ajax + `supprimercompte/${compteId}`);
+
+                const data = await res.json();
+                if(data.success) {
+                    row.remove();
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            } catch(e) {
+                console.error(e);
+                alert('Erreur réseau.');
+            }
+        });
+    });
+}
+
+/*********************************
+ *  VERIFCIATION CORRESPONDANCE MDP
+ *********************************/
+function checkPassword(confirmValue) {
+   const newPassword = document.getElementById('newPassword').value;
+   const errorMsg = document.getElementById('password-error');
+   const confirmField = document.getElementById('confirmPassword');
+
+   if (confirmValue === "") {
+       confirmField.borderColor = '#D1D5DB'
+       errorMsg.classList.add('hidden');
+       return;
+   }
+
+   if (confirmValue === newPassword) {
+       confirmField.style.borderColor = 'green';
+       errorMsg.classList.add('hidden')
+   }else {
+       confirmField.style.borderColor = 'red';
+       errorMsg.classList.remove('hidden');
+   }
+}
+
+/*********************************
+ *  DIVERS
+ *********************************/
+
+function confirmOnClick(message) {
+    alert(message);
+}
+
+function doubleConfirmOnClick(message, messageBis) {
+    if (!confirm(message)) return false;
+
+    if (!confirm(messageBis)) return false;
+
+    return true;
 }

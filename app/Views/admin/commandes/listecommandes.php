@@ -139,21 +139,21 @@
     <!-- PAGINATION -->
     <div class="mt-8 flex justify-center space-x-2">
         <?php if ($currentPage > 1): ?>
-            <a href="<?= base_url('admin/listecom/' . ($currentPage - 1)) ?>"
+            <a href="<?= base_url('commgest/listecom/' . ($currentPage - 1)) ?>"
                class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
                 &laquo; Précédent
             </a>
         <?php endif; ?>
 
         <?php for ($i = 1; $i <= $lastPage; $i++): ?>
-            <a href="<?= base_url('admin/listecom/' . $i) ?>"
+            <a href="<?= base_url('commgest/listecom/' . $i) ?>"
                class="px-3 py-1 <?= $currentPage == $i ? 'bg-blue-500 text-white' : 'bg-gray-200' ?> rounded hover:bg-gray-300">
                 <?= $i ?>
             </a>
         <?php endfor; ?>
 
         <?php if ($currentPage < $lastPage): ?>
-            <a href="<?= base_url('admin/listecom/' . ($currentPage + 1)) ?>"
+            <a href="<?= base_url('commgest/listecom/' . ($currentPage + 1)) ?>"
                class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">
                 Suivant &raquo;
             </a>

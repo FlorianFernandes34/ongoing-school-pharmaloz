@@ -24,7 +24,7 @@
             $input = [
                 'class' => 'space-y-4'
             ];
-            echo form_open('login/login', $input)
+            echo form_open('auth/login', $input)
         ?>
 
         <div>
@@ -64,6 +64,6 @@
             ?>
         </div>
 
-        <p class="text-center text-gray-600 mt-4">Pas encore de compte ? <a href="<?= base_url('login/inscription')?>" class="text-blue-600 hover:underline">Inscrivez-vous</a></p>
+        <p class="text-center text-gray-600 mt-4">Pas encore de compte ? <a href="<?= base_url('auth/inscription')?>" class="text-blue-600 hover:underline">Inscrivez-vous</a></p>
     </div>
 </main>

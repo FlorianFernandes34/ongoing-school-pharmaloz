@@ -4,9 +4,10 @@ namespace App\Controllers;
 
 use App\Models\Commande;
 use App\Models\Produit;
+use App\Models\Utilisateur;
 use DateTime;
 
-class Api extends BaseController {
+class Ajax extends BaseController {
     public function postUpdatestatut()
     {
         $id = $this->request->getPost('idCommande');
@@ -16,7 +17,35 @@ class Api extends BaseController {
 
         if (!$commande) {
             return json_encode([
-                'success' => false]);
+                'success' => false,
+                'message' => 'Cette commande n\'existe pas'
+            ]);
+        }
+
+        if ($commande->statut == 'Annulée') {
+            if ($nouveauStatut == 'Validée') {
+                return json_encode([
+                    'success' => false,
+                    'message' => 'Impossible de modifier le statut de cette commande car elle a été annulée.'
+                ]);
+            }else if ($nouveauStatut == 'Retirée') {
+                return json_encode([
+                    'success' => false,
+                    'message' => 'Impossible de modifier le statut de cette commande car elle a été annulée.'
+                ]);
+            }
+        }else if ($commande->statut == 'Retirée') {
+            if ($nouveauStatut == 'Annulée') {
+                return json_encode([
+                    'success' => false,
+                    'message' => 'Impossible d\'annuler une commande retirée.'
+                ]);
+            }else if ($nouveauStatut == 'Validée') {
+                return json_encode([
+                    'success' => false,
+                    'message' => 'Impossible de valider une commande déjà retirée.'
+                ]);
+            }
         }
 
         $commande->statut = $nouveauStatut;
@@ -24,10 +53,12 @@ class Api extends BaseController {
         if ($commande->save()) {
             return json_encode([
                 'success' => true,
+                'message' => 'Statut modifié avec succès.'
             ]);
         }else {
             return json_encode([
                 'success' => false,
+                'message' => 'Une erreur est survenue, veuillez réessayer.'
             ]);
         }
     }
@@ -78,7 +109,6 @@ class Api extends BaseController {
             $dateFrCommande = $dateCommande->format('d/m/Y H:i');
             $dateRetrait = new DateTime($cmd->creneau_retrait);
             $dateFrRetrait = $dateRetrait->format('d/m/Y H:i');
-
             $result[] = [
                 'id' => $cmd->id,
                 'statut' => $cmd->statut,
@@ -177,5 +207,35 @@ class Api extends BaseController {
             'success' => true
         ]);
 
+    }
+
+    public function getSupprimercompte($id) {
+        if (!$id) {
+            return json_encode([
+                'success' => false,
+                'message' => 'Une erreur est survenue, veuillez réessayer.'
+            ]);
+        }
+
+        $compte = Utilisateur::find($id);
+
+        if (!$compte) {
+            return json_encode([
+                'success' => false,
+                'message' => 'Ce compte n\'existe pas.'
+            ]);
+        }
+
+        if ($compte->delete()) {
+            return json_encode([
+                'success' => true,
+                'message' => 'Compte supprimé avec succès.'
+            ]);
+        }else {
+            return json_encode([
+                'success' => false,
+                'message' => 'Une erreur est survenue lors de la suppression du compte. Veuillez réessayer.'
+            ]);
+        }
     }
 }

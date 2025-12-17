@@ -19,8 +19,13 @@
         echo anchor('commgest/listecom/1', 'Liste des commandes', $input);
 
         $input = [
+            'class' => 'w-64 bg-gray-500 hover:bg-gray-600 text-white font-semibold py-4 px-6 rounded-lg shadow-md text-center transition'
+        ];
+        echo anchor('comptgest/listecomptes', 'Liste des comptes ', $input);
+
+        $input = [
             'class' => 'w-64 bg-red-500 hover:bg-red-600 text-white font-semibold py-4 px-6 rounded-lg shadow-md text-center transition'
         ];
-        echo anchor('admin/ajoutadmin', 'Ajouter un admin', $input);
+        echo anchor('auth/logout', 'Se déconnecter', $input);
     ?>
 </main>
