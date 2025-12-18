@@ -31,6 +31,23 @@
 
     <!-- Main Content -->
     <main class="md:col-span-3 space-y-8">
+        <div>
+            <?php
+            $session = session();
+            if ($session->getFlashdata('errorUpdateMail')) {
+                echo ' 
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                        <span class="block sm:inline">' . $session->getFlashdata("errorUpdateMail") . '</span>
+                    </div>';
+            }else if ($session->getFlashdata('successUpdateMail')) {
+                echo ' 
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                        <span class="block sm:inline">' . $session->getFlashdata("successUpdateMail") . '</span>
+                    </div>';
+            }
+            ?>
+        </div>
+
         <section class="bg-white shadow rounded-xl p-6">
             <h3 class="text-2xl font-bold mb-4">Modifier mon email</h3>
 
@@ -47,7 +64,6 @@
             </div>
 
             <div class="flex justify-end gap-3 pt-4">
-                <?= anchor('account', 'Annuler', ['class' => 'px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition']) ?>
                 <?= form_submit('submit', 'Mettre à jour', ['class' => 'px-6 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition']) ?>
             </div>
 

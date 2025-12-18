@@ -31,6 +31,23 @@
 
     <!-- Main Content -->
     <main class="md:col-span-3 space-y-8">
+        <div>
+            <?php
+            $session = session();
+            if ($session->getFlashdata('errorPassChange')) {
+                echo ' 
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                        <span class="block sm:inline">' . $session->getFlashdata("errorPassChange") . '</span>
+                    </div>';
+            }else if ($session->getFlashdata('successPassChange')) {
+                echo ' 
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                        <span class="block sm:inline">' . $session->getFlashdata("successPassChange") . '</span>
+                    </div>';
+            }
+            ?>
+        </div>
+
         <section class="bg-white shadow rounded-xl p-6">
             <h3 class="text-2xl font-bold mb-4">Modifier mon mot de passe</h3>
 
@@ -38,23 +55,22 @@
 
             <div>
                 <?= form_label('Mot de passe actuel', 'current_password', ['class' => 'block text-sm font-medium text-gray-700 mb-1']) ?>
-                <?= form_password('current_password', '', ['class' => 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400']) ?>
+                <?= form_password('current_password', '', ['class' => 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400', 'required' => 'true']) ?>
             </div>
 
             <div>
                 <?= form_label('Nouveau mot de passe', 'new_password', ['class' => 'block text-sm font-medium text-gray-700 mb-1']) ?>
-                <?= form_password('new_password', '', ['id' => 'newPassword','class' => 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400']) ?>
+                <?= form_password('new_password', '', ['id' => 'newPassword','class' => 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400', 'required' => 'true']) ?>
             </div>
 
             <div>
                 <?= form_label('Confirmer le nouveau mot de passe', 'confirm_password', ['class' => 'block text-sm font-medium text-gray-700 mb-1']) ?>
-                <?= form_password('confirm_password', '', ['id' => 'confirmPassword', 'oninput' => 'checkPassword(this.value)','class' => 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400']) ?>
+                <?= form_password('confirm_password', '', ['id' => 'confirmPassword', 'oninput' => 'checkPassword(this.value)','class' => 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400', 'required' => 'true']) ?>
                 <p id="password-error" class="text-red-500 text-sm mt-1 hidden">Les mots de passe ne correspondent pas.</p>
             </div>
 
             <div class="flex justify-end gap-3 pt-4">
-                <?= anchor('account', 'Annuler', ['class' => 'px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition']) ?>
-                <?= form_submit('submit', 'Mettre à jour', ['class' => 'px-6 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition']) ?>
+                <?= form_submit('submit', 'Mettre à jour', ['id' => 'submitPassChange', 'class' => 'px-6 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition']) ?>
             </div>
 
             <?= form_close() ?>

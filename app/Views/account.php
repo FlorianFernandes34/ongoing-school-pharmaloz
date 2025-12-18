@@ -54,14 +54,25 @@ use App\Models\Produit;
     </aside>
 
 
-
     <!-- Main Content -->
     <main class="md:col-span-3 space-y-8">
+        <div>
+            <?php
+            $session = session();
+            if ($session->getFlashdata('errorDeleteData')) {
+                echo ' 
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                        <span class="block sm:inline">' . $session->getFlashdata("errorDeleteData") . '</span>
+                    </div>';
+            }
+            ?>
+        </div>
+
         <section id="infos" class="bg-white shadow rounded-xl p-6">
             <h3 class="text-2xl font-bold mb-4">Mes informations</h3>
-            <p>Nom : <?= $user->nom?></p>
-            <p>Prénom : <?= $user->prenom?></p>
-            <p>Email : <?= $user->email?></p>
+            <p>Nom : <?= $user_nom?></p>
+            <p>Prénom : <?= $user_prenom?></p>
+            <p>Email : <?= $user_email?></p>
         </section>
 
 

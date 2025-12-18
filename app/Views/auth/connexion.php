@@ -15,6 +15,16 @@
                     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
                         <span class="block sm:inline">' . $session->getFlashdata("successLogout") . '</span>
                     </div>';
+                }else if ($session->getFlashdata('successInsc')) {
+                    echo ' 
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                        <span class="block sm:inline">' . $session->getFlashdata("successInsc") . '</span>
+                    </div>';
+                }else if ($session->getFlashdata('successDeleteData')) {
+                    echo ' 
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                        <span class="block sm:inline">' . $session->getFlashdata("successDeleteData") . '</span>
+                    </div>';
                 }
             ?>
         </div>

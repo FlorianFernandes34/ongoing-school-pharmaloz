@@ -79,7 +79,7 @@
                 'class' => 'block text-gray-700 mb-1',
                 'required' => 'true'
             ];
-            echo form_label('Mot de passe :', 'mdp', $input);
+            echo form_label('Mot de passe :', 'password', $input);
 
             $input = [
                 'class' => 'w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600',
@@ -87,23 +87,35 @@
                 'id' => 'newPassword',
                 'required' => 'true',
             ];
-            echo form_input('mdp', '', $input, 'password');
+            echo form_password('password', '', $input);
 
-            echo form_label('Confirmer le mot de passe : :', 'confirmPassword', $input);
 
-            $input = [
-                'class' => 'w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600',
-                'placeholder' => '••••••••',
-                'id' => 'confirmPassword',
-                'required' => 'true',
-                'oninput' => 'confirmPassword(this.value)',
-            ];
-            echo form_input('confirmPassword', '', $input, 'password');
+            ?>
+        </div>
+        <div>
+            <?php
+                $input = [
+                    'class' => 'block text-gray-700 mb-1',
+                    'required' => 'true'
+                ];
+                echo form_label('Confirmer le mot de passe :', 'confirmPassword', $input);
 
-            $input = [
-                'class' => 'w-full bg-blue-600 text-white py-2 mt-2 rounded-xl font-semibold hover:bg-blue-700',
-            ];
-            echo form_submit('submit', 'S\'inscrire', $input)
+                $input = [
+                    'class' => 'w-full border rounded px-3 py-2 focus:outline-none',
+                    'placeholder' => '••••••••',
+                    'id' => 'confirmPassword',
+                    'required' => 'true',
+                    'oninput' => 'checkPassword(this.value)',
+                ];
+                echo form_input('confirmPassword', '', $input, 'password');
+                echo '<p id="password-error" class="text-red-500 text-sm mt-1 hidden">Les mots de passe ne correspondent pas.</p>';
+
+
+                $input = [
+                    'class' => 'w-full bg-blue-600 text-white py-2 mt-2 rounded-xl font-semibold hover:bg-blue-700',
+                    'id' => 'submitPassChange',
+                ];
+                echo form_submit('submit', 'S\'inscrire', $input)
             ?>
         </div>
 

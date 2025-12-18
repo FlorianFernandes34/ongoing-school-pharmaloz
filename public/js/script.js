@@ -382,6 +382,7 @@ function checkPassword(confirmValue) {
    const newPassword = document.getElementById('newPassword').value;
    const errorMsg = document.getElementById('password-error');
    const confirmField = document.getElementById('confirmPassword');
+   const submitButton = document.getElementById('submitPassChange')
 
    if (confirmValue === "") {
        confirmField.borderColor = '#D1D5DB'
@@ -392,9 +393,13 @@ function checkPassword(confirmValue) {
    if (confirmValue === newPassword) {
        confirmField.style.borderColor = 'green';
        errorMsg.classList.add('hidden')
+       submitButton.disabled = false;
+       console.log(submitButton.disabled);
    }else {
        confirmField.style.borderColor = 'red';
        errorMsg.classList.remove('hidden');
+       submitButton.disabled = true;
+       console.log(submitButton.disabled);
    }
 }
 
