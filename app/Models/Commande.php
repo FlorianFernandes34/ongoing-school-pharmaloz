@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 class Commande extends Model {
     public $timestamps = false;
 
+    protected $casts = [
+        'creneau_retrait' => 'datetime',
+        'date_heure' => 'datetime'
+    ];
+
     public function utilisateur() {
         return $this->belongsTo(Utilisateur::class);
     }
