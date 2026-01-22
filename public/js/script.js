@@ -1,5 +1,5 @@
-const base_url = "http://localhost/pharmaloz";
-const base_url_ajax = "http://localhost/pharmaloz/ajax/";
+const base_url = "https://localhost/pharmaloz";
+const base_url_ajax = "https://localhost/pharmaloz/ajax/";
 
 /*********************************
  *  MISE À JOUR DU STATUT COMMANDE
@@ -75,7 +75,9 @@ function initRechercheCommandes() {
         const query = searchInput.value.trim();
         const type = searchType.value;
         const commandesContainer = document.querySelector('.grid');
-        const emptyState = document.getElementById('emptyState');
+        const emptySearchState = document.getElementById('emptySearchState');
+        const grid = document.querySelector('.grid');
+        const pagination = document.getElementById('pagination');
 
         try {
             const res = await fetch(base_url_ajax + 'searchcommandes', {
@@ -87,8 +89,16 @@ function initRechercheCommandes() {
             const response = await res.json();
             commandesContainer.innerHTML = '';
 
+            if (response.redirect) {
+                window.location.href = response.redirect;
+                return;
+            }
+
             if (response.commandes && response.commandes.length > 0) {
-                emptyState.classList.add('hidden');
+                pagination.classList.add('hidden');
+                grid.classList.remove('hidden');
+                emptySearchState.classList.add('hidden');
+
                 commandesContainer.classList.remove('hidden');
 
                 response.commandes.forEach(cmd => {
@@ -99,7 +109,7 @@ function initRechercheCommandes() {
                                     Commande N°${cmd.id}
                                 </h2>
             
-                                <p id="statut<?= $commande->id ?>">
+                                <p id="statut${cmd.id}">
                                     <span class="font-medium text-gray-600">Statut :</span>
                                     ${cmd.statut}
                                 </p>
@@ -114,7 +124,7 @@ function initRechercheCommandes() {
                                 </p>
             
                                     <span class="font-medium text-gray-600">Créneau retrait :</span>
-                                    ${cmd.dateFrRetrait}
+                                    ${cmd.creneau_retrait}
                                 </p>
             
                                 <p class="mt-2 font-medium text-gray-700">Utilisateur :</p>
@@ -129,29 +139,31 @@ function initRechercheCommandes() {
                             <div class="flex space-x-2 mt-4">
             
                                 <!-- STATUT -->
-                                <div class="relative flex-1" data-id="<?= $commande->id ?>">
+                                <div class="relative flex-1" data-id="${cmd.id}">
                                     <button type="button"
                                             class="status-button w-full h-10 bg-blue-500 hover:bg-blue-600 text-white font-medium px-3 rounded-lg shadow
                                                flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
                                         <span class="status-text flex-1 text-center">
-                                            <?= $commande->statut ?>
+                                            ${cmd.statut}
                                         </span>
                                         <i class="fas fa-chevron-down ml-2"></i>
                                     </button>
             
-                                    <ul
-                                            class="status-dropdown absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-10">
-                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                            data-value="Validée">Validée</li>
-                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                            data-value="Retirée">Retirée</li>
-                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                            data-value="Annulée">Annulée</li>
+                                    <ul class="status-dropdown absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-10">
+                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Validée">
+                                            Validée
+                                        </li>
+                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Retirée">
+                                            Retirée
+                                        </li>
+                                        <li class="dropdown-item px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" data-value="Annulée">
+                                            Annulée
+                                        </li>
                                     </ul>
                                 </div>
             
                                 <!-- VOIR ARTICLES -->
-                                <a href="<?= base_url('commgest/listeproduitscomm/' . $commande->id) ?>"
+                                <a href="${base_url}/commgest/listeproduitscomm/${cmd.id}"
                                    class="flex-1 h-10 min-w-0 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 rounded-lg transition whitespace-nowrap">
                                     <i class="fas fa-edit"></i>
                                     <span>Voir les articles</span>
@@ -162,8 +174,9 @@ function initRechercheCommandes() {
 
                 initUpdateDropdowns();
             } else {
-                commandesContainer.classList.add('hidden');
-                emptyState.classList.remove('hidden');
+                grid.classList.add('hidden');
+                emptySearchState.classList.remove('hidden');
+
             }
         } catch (e) {
             console.error(e);
@@ -353,9 +366,7 @@ async function deleteCompte() {
             const row = btn.closest('tr');
             const compteId = row.dataset.id;
 
-            if (!confirm('Voulez vous supprimer ce compte ?')) return;
-
-            if(!confirm('Voulez vous vraiment supprimer ce compte ? Cette action est irréversible.')) return;
+            doubleConfirmOnClick('Voulez vous supprimer ce compte ?', 'Voulez vous vraiment supprimer ce compte ?')
 
             try {
                 const res = await fetch(base_url_ajax + `supprimercompte/${compteId}`);
@@ -407,14 +418,14 @@ function checkPassword(confirmValue) {
  *  DIVERS
  *********************************/
 
-function confirmOnClick(message) {
-    alert(message);
-}
-
 function doubleConfirmOnClick(message, messageBis) {
+
     if (!confirm(message)) return false;
 
-    if (!confirm(messageBis)) return false;
-
-    return true;
+    return confirm(messageBis);
 }
+document.addEventListener('click', (e) => {
+    if (e.target.closest('#resetSearch')) {
+        window.location.href = base_url + '/commgest/listecom/1';
+    }
+});
