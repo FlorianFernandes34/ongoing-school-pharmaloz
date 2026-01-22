@@ -267,11 +267,7 @@ class Auth extends BaseController {
     public function getLogout() {
         $session = session();
 
-        $session->remove('user');
-
-        if ($session->has('isAdmin')) {
-            $session->remove('isAdmin');
-        }
+        $session->destroy();
 
         $session->setFlashdata('successLogout', 'Vous avez bien été déconnecté');
         return redirect()->to('auth/connexion');
