@@ -173,19 +173,6 @@ class Auth extends BaseController {
         return redirect()->to('auth/updatepassword');
     }
 
-    public function getUpdatemail() {
-        $data = [
-            "activePage" => 'home',
-            'categories' => Categorie::all(),
-            "page" => 'Modifier mot de passe'
-        ];
-
-        return view('template/head', $data)
-            . view('template/header', $data)
-            . view('auth/updatemail', $data)
-            . view('template/footer', $data);
-    }
-
     public function postUpdatemail() {
         $session = session();
         $user = Utilisateur::find($session->get("user_id"));
