@@ -57,6 +57,7 @@ class Auth extends BaseController {
             if (password_verify($mdp, $user->password)) {
                 if ($user->isAdmin($email, $mdp)) {
                     $session->set([
+                        'connected' => true,
                         'user_id' => $user->id,
                         'user_email' => $user->email,
                         'user_nom' => $user->nom,
