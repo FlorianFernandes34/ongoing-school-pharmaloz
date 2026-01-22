@@ -10,22 +10,23 @@
                 <a href="<?= base_url('produits')?>" class="hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50">Produits</a>
                 <!-- Sous-menu catégories -->
                 <div class="absolute left-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg hidden group-hover:block">
+                    <?= anchor('produits/all', 'Tous nos produits', ['class' => 'block px-4 py-2 hover:bg-blue-50']) ?>
                     <?php
-                    foreach ($categories as $category) {
-                        $categoryName = $category->nom;
-                        $categoryName = iconv('UTF-8', 'ASCII//TRANSLIT', $categoryName);
-                        $categoryName = strtolower($categoryName);
-                        $categorieFormat = preg_replace("/[^a-z0-9]/", "", $categoryName);
+                        foreach ($categories as $category) {
+                            $categoryName = $category->nom;
+                            $categoryName = iconv('UTF-8', 'ASCII//TRANSLIT', $categoryName);
+                            $categoryName = strtolower($categoryName);
+                            $categorieFormat = preg_replace("/[^a-z0-9]/", "", $categoryName);
 
-                        echo anchor($categorieFormat, $category->nom, ['class' => 'block px-4 py-2 hover:bg-blue-50']);
-                    }
+                            echo anchor('produits/'. $categorieFormat, $category->nom, ['class' => 'block px-4 py-2 hover:bg-blue-50']);
+                        }
                     ?>
                 </div>
             </div>
             <?php
                 $session = session();
 
-                if ($session->get('user')) {
+                if ($session->get('connected')) {
                     if ($session->get('isAdmin')) {
                         echo anchor('admin', '<i class="fa-solid fa-user"></i>');
                     }else {
