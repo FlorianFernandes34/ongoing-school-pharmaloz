@@ -67,6 +67,7 @@ class Auth extends BaseController {
                     return redirect()->to('admin');
                 }else {
                     $session->set([
+                        'connected' => true,
                         'user_id' => $user->id,
                         'user_email' => $user->email,
                         'user_nom' => $user->nom,
