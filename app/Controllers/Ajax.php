@@ -238,7 +238,8 @@ class Ajax extends BaseController {
             }
             return json_encode([
                 'success' => true,
-                'message' => 'Compte supprimé avec succès.'
+                'message' => 'Compte supprimé avec succès.',
+                'redirect' => base_url('auth/connexion')
             ]);
         }else {
             return json_encode([
