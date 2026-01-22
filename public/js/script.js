@@ -375,6 +375,7 @@ async function deleteCompte() {
                 if(data.success) {
                     row.remove();
                     alert(data.message);
+                    if (data.redirect) window.location.href = data.redirect;
                 } else {
                     alert(data.message);
                 }
