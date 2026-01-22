@@ -24,28 +24,54 @@
     </div>
 
     <!-- Liste des catégories -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <?php foreach ($categories as $categorie): ?>
-            <div class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between border border-gray-100 hover:shadow-lg transition-all">
+    <?php if ($categories->isEmpty()): ?>?>
+        <div class="col-span-full flex items-center justify-center min-h-[50vh]">
+            <div class="text-center bg-white border border-gray-200 rounded-2xl shadow-sm px-8 py-10 max-w-md w-full">
 
-                <!-- Titre -->
-                <div class="flex-1">
-                    <h2 class="text-lg font-semibold text-gray-800 mb-3 truncate"><?= $categorie->nom ?></h2>
+                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
+                    <i class="fas fa-box-open text-3xl text-blue-500"></i>
                 </div>
 
-                <!-- Boutons -->
-                <div class="flex space-x-2 mt-4">
-                    <?= anchor('categgest/modifcategorie/' . $categorie->id, '<i class="fas fa-edit mr-1"></i> Modifier', [
-                        'class' => 'flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg transition'
-                    ]) ?>
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                    Aucune catégories n'a été trouvée
+                </h2>
 
-                    <?= anchor('categgest/supprimercategorie/' . $categorie->id, '<i class="fas fa-trash mr-1"></i> Supprimer', [
-                        'class' => 'flex-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-3 rounded-lg transition',
-                        'onclick' => 'return confirm("Voulez vous vraiment supprimer cette catégorie ?")'
-                    ]) ?>
-                </div>
+                <p class="text-gray-500 mb-6">
+                    Aucune catégories n'a été trouvée
+                </p>
+
+                <a href="<?= base_url('admin') ?>"
+                   class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium px-5 py-2.5 rounded-lg shadow transition">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour au tableau de bord
+                </a>
             </div>
-        <?php endforeach; ?>
-    </div>
+        </div>
+    <?php else: ?>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <?php foreach ($categories as $categorie): ?>
+                <div class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between border border-gray-100 hover:shadow-lg transition-all">
+
+                    <!-- Titre -->
+                    <div class="flex-1">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-3 truncate"><?= $categorie->nom ?></h2>
+                    </div>
+
+                    <!-- Boutons -->
+                    <div class="flex space-x-2 mt-4">
+                        <?= anchor('categgest/modifcategorie/' . $categorie->id, '<i class="fas fa-edit mr-1"></i> Modifier', [
+                                'class' => 'flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg transition'
+                        ]) ?>
+
+                        <?= anchor('categgest/supprimercategorie/' . $categorie->id, '<i class="fas fa-trash mr-1"></i> Supprimer', [
+                                'class' => 'flex-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-3 rounded-lg transition',
+                                'onclick' => 'return confirm("Voulez vous vraiment supprimer cette catégorie ?")'
+                        ]) ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
 
 </main>
