@@ -233,6 +233,9 @@ class Ajax extends BaseController {
         }
 
         if ($compte->delete()) {
+            if ($session->get('user_id') == $id) {
+                session()->destroy();
+            }
             return json_encode([
                 'success' => true,
                 'message' => 'Compte supprimé avec succès.'
