@@ -72,8 +72,9 @@ class Ajax extends BaseController {
         $commandes = Commande::with('utilisateur', 'produits');
 
         if ($query === '') {
-            // Champ vide → toutes les commandes
-            $commandes = $commandes->limit(6)->get();
+            return $this->response->setJSON([
+                'redirect' => base_url('commgest/listecom/1')
+            ]);
         } else {
             switch ($type) {
                 case 'id':
@@ -87,7 +88,6 @@ class Ajax extends BaseController {
                     break;
                 case 'client':
                     $commandes = $commandes->whereHas('utilisateur', function($q) use($query) {
-                        // on cherche nom OU prénom correspondant
                         $q->where('nom', 'LIKE', "%$query%")
                             ->orWhere('prenom', 'LIKE', "%$query%");
                     })->get();
@@ -104,17 +104,14 @@ class Ajax extends BaseController {
         // Préparer le JSON
         $result = [];
         foreach ($commandes as $cmd) {
-            //Date au format francais
-            $dateCommande = new DateTime($cmd->date_heure);
-            $dateFrCommande = $dateCommande->format('d/m/Y H:i');
-            $dateRetrait = new DateTime($cmd->creneau_retrait);
-            $dateFrRetrait = $dateRetrait->format('d/m/Y H:i');
+            $date_commande = $cmd->date_heure->format('d/m/Y H:i');
+            $date_retrait = $cmd->creneau_retrait->format('d/m/Y H:i');
             $result[] = [
                 'id' => $cmd->id,
                 'statut' => $cmd->statut,
-                'date_heure' => $dateFrCommande,
-                'prix_total' => $cmd->produits->sum(fn($p) => $p->prix * $p->pivot->quantite),
-                'creneau_retrait' => $dateFrRetrait,
+                'date_heure' => $date_commande,
+                'prix_total' => number_format($cmd->produits->sum(fn($p) => $p->prix * $p->pivot->quantite), 2, ',', ' '),
+                'creneau_retrait' => $date_retrait,
                 'utilisateur' => [
                     'nom' => $cmd->utilisateur->nom,
                     'prenom' => $cmd->utilisateur->prenom,
@@ -214,6 +211,15 @@ class Ajax extends BaseController {
             return json_encode([
                 'success' => false,
                 'message' => 'Une erreur est survenue, veuillez réessayer.'
+            ]);
+        }
+
+        $accountNumber = Utilisateur::where('role', 'admin')->count();
+
+        if ($accountNumber === 1) {
+            return json_encode([
+                'success' => false,
+                'message' => 'Impossible de supprimer le dernier compte administrateur.'
             ]);
         }
 
