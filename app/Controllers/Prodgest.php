@@ -109,14 +109,14 @@ class Prodgest extends BaseController {
 
         if (!$id) {
             $session->setFlashdata('errorModifProduit', 'Une erreur est surevnue, veuillez réessayer.');
-            return redirect()->back();
+            return redirect()->to('prodgest/listeproduits/1');
         }
 
         $produit = Produit::find($id);
 
         if (!$produit) {
-            $session->setFlashdata('errorModifProduit', 'Ce produit n\'existe pas.');
-            return redirect()->back();
+            $session->setFlashdata('errorModifProduit', 'Ce produit n\'existe pas/plus.');
+            return redirect()->to('prodgest/listeproduits/1');
         }
 
         $data = [
@@ -205,7 +205,7 @@ class Prodgest extends BaseController {
         $produit = Produit::find($id);
 
         if (!$produit) {
-            $session->setFlashdata('errorProdDelete', 'Ce produit n\'existe pas.');
+            $session->setFlashdata('errorProdDelete', 'Ce produit n\'existe pas/plus.');
             return redirect()->back();
         }
 

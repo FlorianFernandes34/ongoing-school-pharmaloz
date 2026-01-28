@@ -2,6 +2,17 @@ const base_url = "https://localhost/pharmaloz";
 const base_url_ajax = "https://localhost/pharmaloz/ajax/";
 
 /*********************************
+ *  GESTION MENU MOBILE
+ *********************************/
+const btn = document.getElementById('menu-btn');
+const menu = document.getElementById('mobile-menu');
+
+btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+});
+
+
+/*********************************
  *  MISE À JOUR DU STATUT COMMANDE
  *********************************/
 document.addEventListener('DOMContentLoaded', () => {

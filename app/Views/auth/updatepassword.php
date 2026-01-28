@@ -5,16 +5,16 @@
 
         <ul class="space-y-1 text-sm font-medium">
             <li>
-                <?= anchor('auth/account', '<i class="fas fa-home mr-3 text-gray-400"></i> Accueil', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition']) ?>
+                <?= anchor('account', '<i class="fas fa-home mr-3 text-gray-400"></i> Accueil', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition']) ?>
             </li>
             <li>
-                <?= anchor('auth/updatepassword', '<i class="fas fa-lock mr-3 text-gray-400"></i> Modifier mon mot de passe', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition']) ?>
+                <?= anchor('account/updatepassword', '<i class="fas fa-lock mr-3 text-gray-400"></i> Modifier mon mot de passe', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition']) ?>
             </li>
             <li>
-                <?= anchor('auth/updatemail', '<i class="fas fa-envelope mr-3 text-gray-400"></i> Modifier mon email', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition']) ?>
+                <?= anchor('account/updatemail', '<i class="fas fa-envelope mr-3 text-gray-400"></i> Modifier mon email', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition']) ?>
             </li>
             <li>
-                <?= anchor('auth/updateinfos', '<i class="fas fa-user mr-3 text-gray-400"></i> Modifier mes informations', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition']) ?>
+                <?= anchor('account/updateinfos', '<i class="fas fa-user mr-3 text-gray-400"></i> Modifier mes informations', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition']) ?>
             </li>
             <li class="my-3 border-t border-gray-200"></li>
             <li>

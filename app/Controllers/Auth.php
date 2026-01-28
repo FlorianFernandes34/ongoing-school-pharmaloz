@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Models\Categorie;
 use App\Models\Commande;
+use App\Models\PasswordReset;
 use App\Models\Utilisateur;
 use Illuminate\Container\Util;
 
@@ -24,68 +25,6 @@ class Auth extends BaseController {
             . view('template/footer', $data);
     }
 
-    public function getAccount() {
-        $session = session();
-        $userid = $session->get('user_id');
-        $commandes = Commande::where("utilisateur_id", $userid)->get();
-
-        $data = [
-            "activePage" => 'home',
-            'categories' => Categorie::all(),
-            "page" => 'Compte',
-            "user_id" => $session->get('user_id'),
-            "user_nom" => $session->get('user_nom'),
-            "user_prenom" => $session->get('user_prenom'),
-            "user_email" => $session->get('user_email'),
-            "commandes" => $commandes
-        ];
-
-        return view('template/head', $data)
-            . view('template/header', $data)
-            . view('account', $data)
-            . view('template/footer', $data);
-    }
-
-    public function postLogin() {
-        $session = session();
-        $email = $this->request->getPost('email');
-        $mdp = $this->request->getPost('mdp');
-
-        $user = Utilisateur::where('email', $email)->first();
-
-        if ($user != null) {
-            if (password_verify($mdp, $user->password)) {
-                if ($user->isAdmin($email, $mdp)) {
-                    $session->set([
-                        'connected' => true,
-                        'user_id' => $user->id,
-                        'user_email' => $user->email,
-                        'user_nom' => $user->nom,
-                        'user_prenom' => $user->prenom,
-                        'isAdmin' => true,
-                    ]);
-                    $session->set("isAdmin", true);
-                    return redirect()->to('admin');
-                }else {
-                    $session->set([
-                        'connected' => true,
-                        'user_id' => $user->id,
-                        'user_email' => $user->email,
-                        'user_nom' => $user->nom,
-                        'user_prenom' => $user->prenom
-                    ]);
-                    return redirect()->to('auth/account');
-                }
-            }else {
-                $session->setFlashdata('errorLogin', 'Email ou mot de passe incorrect');
-                return redirect()->to('auth/connexion');
-            }
-        }else {
-            $session->setFlashdata('errorLogin', 'Email ou mot de passe incorrect');
-            return redirect()->to('auth/connexion');
-        }
-    }
-
     public function getInscription() {
         $data = [
             "activePage" => 'home',
@@ -96,6 +35,52 @@ class Auth extends BaseController {
         return view('template/head', $data)
             . view('template/header', $data)
             . view('auth/inscription', $data)
+            . view('template/footer', $data);
+    }
+
+    public function getLogout() {
+        $session = session();
+
+        $session->destroy();
+
+        $session->setFlashdata('successLogout', 'Vous avez bien été déconnecté');
+        return redirect()->to('auth/connexion');
+    }
+
+    public function getDeleteaccountdata() {
+        $session = session();
+
+        $user = Utilisateur::find($session->get("user_id"));
+
+        if (!$user) {
+            $session->setFlashdata('errorDeleteData', 'Une erreur est survenue. Veuillez réessayer.');
+            return redirect()->to('account');
+        }
+
+        try {
+            $user->commandes()->delete();
+            $user->delete();
+            $session->setFlashdata('successDeleteData', 'Compte et données supprimée avec succès.');
+        }catch (\Error $e) {
+            $session->setFlashdata('errorDeleteData', 'Une erreur est survenue. Veuillez réessayer.');
+            return redirect()->to('account');
+        }
+
+        $session->destroy();
+
+        return redirect()->to('auth/connexion');
+    }
+
+    public function getMailchangepassword() {
+        $data = [
+            "activePage" => 'home',
+            'categories' => Categorie::all(),
+            "page" => 'Mot de passe oublié'
+        ];
+
+        return view('template/head', $data)
+            . view('template/header', $data)
+            . view('auth/mailchangepassword', $data)
             . view('template/footer', $data);
     }
 
@@ -134,17 +119,44 @@ class Auth extends BaseController {
         return redirect()->to('auth/inscription');
     }
 
-    public function getUpdatepassword() {
-        $data = [
-            "activePage" => 'home',
-            'categories' => Categorie::all(),
-            "page" => 'Modifier mot de passe'
-        ];
+    public function postLogin() {
+        $session = session();
+        $email = $this->request->getPost('email');
+        $mdp = $this->request->getPost('mdp');
 
-        return view('template/head', $data)
-            . view('template/header', $data)
-            . view('auth/updatepassword', $data)
-            . view('template/footer', $data);
+        $user = Utilisateur::where('email', $email)->first();
+
+        if ($user != null) {
+            if (password_verify($mdp, $user->password)) {
+                if ($user->isAdmin($email, $mdp)) {
+                    $session->set([
+                        'connected' => true,
+                        'user_id' => $user->id,
+                        'user_email' => $user->email,
+                        'user_nom' => $user->nom,
+                        'user_prenom' => $user->prenom,
+                        'isAdmin' => true,
+                    ]);
+                    $session->set("isAdmin", true);
+                    return redirect()->to('admin');
+                }else {
+                    $session->set([
+                        'connected' => true,
+                        'user_id' => $user->id,
+                        'user_email' => $user->email,
+                        'user_nom' => $user->nom,
+                        'user_prenom' => $user->prenom
+                    ]);
+                    return redirect()->to('account');
+                }
+            }else {
+                $session->setFlashdata('errorLogin', 'Email ou mot de passe incorrect');
+                return redirect()->to('auth/connexion');
+            }
+        }else {
+            $session->setFlashdata('errorLogin', 'Email ou mot de passe incorrect');
+            return redirect()->to('auth/connexion');
+        }
     }
 
     public function postUpdatepassword() {
@@ -153,7 +165,7 @@ class Auth extends BaseController {
 
         if (!$user) {
             $session->setFlashdata('errorPassChange', 'Une erreur est survenue, veuillez réessayer');
-            return redirect()->to('auth/updatepassword');
+            return redirect()->to('account/updatepassword');
         }
 
         $ancienMotDePasse = $this->request->getPost('current_password');
@@ -170,7 +182,7 @@ class Auth extends BaseController {
             $session->setFlashdata('errorPassChange', 'Le mot de passe entré ne correspond pas à votre mot de passe actuel.');
         }
 
-        return redirect()->to('auth/updatepassword');
+        return redirect()->to('account/updatepassword');
     }
 
     public function postUpdatemail() {
@@ -180,7 +192,7 @@ class Auth extends BaseController {
 
         if (!$user) {
             $session->setFlashdata('errorUpdateMail', 'Une erreur est survenue lors de la modification de l\'email, veuillez réessayer.');
-            return redirect()->to('auth/updatemail');
+            return redirect()->to('account/updatemail');
         }
 
         $email = $this->request->getPost('email');
@@ -189,7 +201,7 @@ class Auth extends BaseController {
         foreach ($allUsers as $oneUser) {
             if ($oneUser->email == $email) {
                 $session->setFlashdata('errorUpdateMail', 'Cet email est déjà utilisé.');
-                return redirect()->to('auth/updatemail');
+                return redirect()->to('account/updatemail');
             }
         }
 
@@ -204,23 +216,7 @@ class Auth extends BaseController {
         }else {
             $session->setFlashdata('errorUpdateMail', 'Le mot de passe entré ne correspond pas à votre mot de passe.');
         }
-        return redirect()->to('auth/updatemail');
-    }
-
-    public function getUpdateinfos() {
-        $session = session();
-        $data = [
-            "activePage" => 'home',
-            "user_nom" => $session->get('user_nom'),
-            "user_prenom" => $session->get('user_prenom'),
-            'categories' => Categorie::all(),
-            "page" => 'Modifier mot de passe'
-        ];
-
-        return view('template/head', $data)
-            . view('template/header', $data)
-            . view('auth/updateinfos', $data)
-            . view('template/footer', $data);
+        return redirect()->to('account/updatemail');
     }
 
     public function postUpdateinfos() {
@@ -230,7 +226,7 @@ class Auth extends BaseController {
 
         if (!$user) {
             $session->setFlashdata('errorUpdateInfos', 'Une erreur est survenue lors de la modification de vos informations, veuillez réessayer.');
-            return redirect()->to('auth/updatemail');
+            return redirect()->to('account/updatemail');
         }
 
         $nom = $this->request->getPost('nom');
@@ -250,41 +246,109 @@ class Auth extends BaseController {
         }else {
             $session->setFlashdata('errorUpdateInfos', 'Le mot de passe entré ne correspond pas à votre mot de passe.');
         }
-        return redirect()->to('auth/updateinfos');
+        return redirect()->to('account/updateinfos');
     }
 
-    public function getLogout() {
+    public function postMailchangepassword() {
         $session = session();
+        $mail = $this->request->getPost('email');
 
-        $session->destroy();
+        $generatedCode = random_int(100000, 999999);
 
-        $session->setFlashdata('successLogout', 'Vous avez bien été déconnecté');
-        return redirect()->to('auth/connexion');
-    }
-
-    public function getDeleteaccountdata() {
-        $session = session();
-
-        $user = Utilisateur::find($session->get("user_id"));
+        $user = Utilisateur::where('email', $mail)->first();
 
         if (!$user) {
-            $session->setFlashdata('errorDeleteData', 'Une erreur est survenue. Veuillez réessayer.');
-            return redirect()->to('auth/account');
+            $data = [
+                "activePage" => 'home',
+                'categories' => Categorie::all(),
+                "page" => 'Mot de passe oublié'
+            ];
+
+            return view('template/head', $data)
+                . view('template/header', $data)
+                . view('auth/codechangepassword', $data)
+                . view('template/footer', $data);
         }
+        PasswordReset::updateOrCreate(
+            ['email' => $mail],
+            [
+                'code' => password_hash($generatedCode, PASSWORD_DEFAULT),
+                'expires_at' => date('Y-m-d H:i:s', strtotime('+15 minutes'))
+            ]
+        );
 
-        try {
-            $user->commandes()->delete();
-            $user->delete();
-            $session->setFlashdata('successDeleteData', 'Compte et données supprimée avec succès.');
-        }catch (\Error $e) {
-            $session->setFlashdata('errorDeleteData', 'Une erreur est survenue. Veuillez réessayer.');
-            return redirect()->to('auth/account');
-        }
+        $session->set('password_reset_email', $mail);
 
-        $session->destroy();
+        $emailService = \Config\Services::email();
+        $emailService->setTo($mail);
+        $emailService->setSubject('PharmaLoz - Réinitialisation de votre mot de passe');
+        $emailService->setMessage("Bonjour, voici votre code de réinitialisation : $generatedCode. Celui-ci est valable pendant 15 minutes.");
+        $emailService->setMailType('html');
+        $emailService->send();
 
-        return redirect()->to('auth/connexion');
+        $data = [
+            "activePage" => 'home',
+            'categories' => Categorie::all(),
+            "page" => 'Mot de passe oublié'
+        ];
+
+        return view('template/head', $data)
+            . view('template/header', $data)
+            . view('auth/codechangepassword', $data)
+            . view('template/footer', $data);
     }
 
+    public function postCodechangepassword() {
+        $session = session();
+        $code = $this->request->getPost('code');
+        $email = $session->get('password_reset_email');
 
+        $reset = PasswordReset::where('email', $email)->where('expires_at', '>', date('Y-m-d H:i:s'))->first();
+
+        if (!$reset || !password_verify($code, $reset->code)) {
+            $session->setFlashdata('errorCodeValidation', 'Code invalide ou expiré');
+            return redirect()->to('auth/mailchangepassword');
+        }
+
+        $data = [
+            "activePage" => 'home',
+            'categories' => Categorie::all(),
+            "page" => 'Changer mot de passe'
+        ];
+
+        return view('template/head', $data)
+            . view('template/header', $data)
+            . view('auth/changepassword', $data)
+            . view('template/footer', $data);
+    }
+
+    public function postChangepassword() {
+        $session = session();
+        $password = $this->request->getPost('password');
+        $email = $session->get('password_reset_email');
+
+        if (!$email) {
+            $session->setFlashdata('errorChangePassword', 'Session expirée.');
+            return redirect()->to('auth/mailchangepassword');
+        }
+
+        $user = Utilisateur::where('email', $email)->first();
+
+        if (!$user) {
+            $session->setFlashdata('errorChangePassword', 'Une erreur est survenue lors du changement du mot de passe.');
+            return redirect()->to('auth/mailchangepassword');
+        }
+
+        $user->password = password_hash($password, PASSWORD_DEFAULT);
+
+        if ($user->save()) {
+            $session->remove('password_reset_email');
+            $session->setFlashdata('successChangePassword', 'Votre mot de passe a bien été changé, vous pouvez vous connecter.');
+            return redirect()->to('auth/connexion');
+        }
+
+        $session->setFlashdata('errorChangePassword', 'Une erreur est survenue lors du changement du mot de passe.');
+        return redirect()->to('auth/mailchangepassword');
+
+    }
 }

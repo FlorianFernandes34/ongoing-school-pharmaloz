@@ -12,33 +12,28 @@ use App\Models\Produit;
 
         <ul class="space-y-1 text-sm font-medium">
             <li>
-                <?= anchor(
-                    'auth/account', '<i class="fas fa-home mr-3 text-gray-400"></i> Accueil', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition'])
+                <?= anchor('account', '<i class="fas fa-home mr-3 text-gray-400"></i> Accueil', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition'])
                 ?>
             </li>
             <li>
-                <?= anchor(
-                    'auth/updatepassword', '<i class="fas fa-lock mr-3 text-gray-400"></i> Modifier mon mot de passe', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition'])
-                ?>
-            </li>
-
-            <li>
-                <?= anchor(
-                    'auth/updatemail', '<i class="fas fa-envelope mr-3 text-gray-400"></i> Modifier mon email', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition'])
+                <?= anchor('account/updatepassword', '<i class="fas fa-lock mr-3 text-gray-400"></i> Modifier mon mot de passe', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition'])
                 ?>
             </li>
 
             <li>
-                <?= anchor(
-                    'auth/updateinfos', '<i class="fas fa-user mr-3 text-gray-400"></i> Modifier mes informations', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition'])
+                <?= anchor('account/updatemail', '<i class="fas fa-envelope mr-3 text-gray-400"></i> Modifier mon email', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition'])
+                ?>
+            </li>
+
+            <li>
+                <?= anchor('account/updateinfos', '<i class="fas fa-user mr-3 text-gray-400"></i> Modifier mes informations', ['class' => 'flex items-center px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition'])
                 ?>
             </li>
 
             <!-- Séparateur -->
             <li class="my-3 border-t border-gray-200"></li>
             <li>
-                <?= anchor(
-                    'auth/logout', '<i class="fas fa-sign-out-alt mr-3"></i> Se déconnecter', ['class' => 'flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition'])
+                <?= anchor('auth/logout', '<i class="fas fa-sign-out-alt mr-3"></i> Se déconnecter', ['class' => 'flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition'])
                 ?>
             </li>
 
@@ -113,14 +108,27 @@ use App\Models\Produit;
                         $total = $quantite * $produit->prix;
                     }
                     echo '
-                        <div class="border rounded p-4 flex justify-between items-center">
-                            <div>
-                                <p class="font-semibold">Commande ' . $commande->id . '</p>
-                                <p class="text-gray-600 text-sm">Date : ' . $commande->date_heure . '</p>
-                                <p class="text-gray-600 text-sm">Statut : ' . $commande->statut . '</p>
+                            <div class="border rounded p-4 flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold">Commande N°' . $commande->id . '</p>
+                                    <p class="text-gray-600 text-sm">
+                                        Date : ' . $commande->date_heure->format("d/m/Y H:i") . '
+                                    </p>
+                                    
+                                    <p class="text-gray-600 text-sm">
+                                        Statut : ' . $commande->statut . '
+                                    </p>
+                                </div>
+                                
+                                <span class="font-semibold">
+                                    Total : ' . number_format($total, 2, ',', ' ') . '€
+                                </span>
+                                
+                                <a href="' . site_url('account/voircommande/' . $commande->id) . '" class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition shadow">
+                                    <i class="fas fa-eye mr-2"></i>
+                                    Voir la commande
+                                </a>
                             </div>
-                            <span class="font-semibold">Total : ' . $total . '€</span>
-                        </div>
                     ';
                 }
                 ?>

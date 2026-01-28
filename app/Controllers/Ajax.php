@@ -207,6 +207,7 @@ class Ajax extends BaseController {
     }
 
     public function getSupprimercompte($id) {
+        $session = session();
         if (!$id) {
             return json_encode([
                 'success' => false,

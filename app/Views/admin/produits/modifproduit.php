@@ -33,6 +33,9 @@
             ?>
         </div>
 
+        <?php if($produit === null): ?>
+            <p>Ce produit n'existe pas/plus.</p>
+        <?php endif; ?>
         <!-- ID PRODUIT (hidden) -->
         <?= form_hidden('idProduit', strval($produit->id), '')?>
 

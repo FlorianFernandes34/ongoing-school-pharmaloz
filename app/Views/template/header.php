@@ -1,77 +1,111 @@
 <body class="bg-gray-50 text-gray-800">
 
-<!-- HEADER AVEC MENU COMPLET -->
+<!-- HEADER -->
 <header class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
-        <a href="<?= base_url()?>" class="text-2xl font-bold text-blue-600 hover:text-blue-700">PharmaLoz</a>
-        <nav class="hidden md:flex items-center space-x-6 font-medium relative">
-            <a href="<?= base_url()?>" class="hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50">Accueil</a>
-            <div class="group relative">
-                <a href="<?= base_url('produits')?>" class="hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50">Produits</a>
-                <!-- Sous-menu catégories -->
-                <div class="absolute left-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg hidden group-hover:block">
-                    <?= anchor('produits/all', 'Tous nos produits', ['class' => 'block px-4 py-2 hover:bg-blue-50']) ?>
-                    <?php
-                        foreach ($categories as $category) {
-                            $categoryName = $category->nom;
-                            $categoryName = iconv('UTF-8', 'ASCII//TRANSLIT', $categoryName);
-                            $categoryName = strtolower($categoryName);
-                            $categorieFormat = preg_replace("/[^a-z0-9]/", "", $categoryName);
 
-                            echo anchor('produits/'. $categorieFormat, $category->nom, ['class' => 'block px-4 py-2 hover:bg-blue-50']);
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+
+        <!-- LOGO -->
+        <a href="<?= base_url() ?>" class="flex items-center gap-3">
+            <span class="text-2xl font-bold text-blue-600">PharmaLoz</span>
+        </a>
+
+        <!-- SEARCH BAR -->
+        <div class="hidden lg:flex flex-1 max-w-md">
+            <div class="relative w-full">
+                <input type="text" placeholder="Rechercher un produit..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+
+        <!-- NAV DESKTOP -->
+        <nav class="hidden md:flex items-center gap-2 font-medium">
+
+            <a href="<?= base_url() ?>" class="px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition">
+                Accueil
+            </a>
+
+            <!-- PRODUITS + CATEGORIES -->
+            <div class="relative group">
+                <a href="<?= base_url('produits/produitsliste/all') ?>" class="px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition flex items-center gap-2">
+                    Produits
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </a>
+
+                <div class="absolute left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+
+                    <div class="bg-white border rounded-xl shadow-lg">
+
+                        <?= anchor('produits/produitsliste/all', 'Tous les produits', ['class'=>'block px-4 py-2 hover:bg-blue-50']) ?>
+
+                        <?php
+                        foreach ($categories as $category) {
+
+                            echo anchor('produits/produitsliste/'.$category->nom_lien, $category->nom, ['class'=>'block px-4 py-2 hover:bg-blue-50']
+                            );
                         }
-                    ?>
+                        ?>
+                    </div>
                 </div>
             </div>
-            <?php
-                $session = session();
-
-                if ($session->get('connected')) {
-                    if ($session->get('isAdmin')) {
-                        echo anchor('admin', '<i class="fa-solid fa-user"></i>');
-                    }else {
-                        echo  anchor('auth/account', '<i class="fa-solid fa-user"></i>', ['class' => 'hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50']);
-                    }
-                }else {
-                    echo anchor('auth/connexion', '<i class="fa-solid fa-user"></i>', ['class' => 'hover:text-blue-600 px-3 py-2 rounded-lg transition hover:bg-blue-50']);
-                }
-            ?>
-            <a href="<?= base_url('panier')?>" class="relative px-3 py-2 rounded-lg transition hover:bg-blue-50">
-                <!-- Logo panier FontAwesome -->
-                <i class="fas fa-shopping-cart text-gray-800 hover:text-blue-600 text-xl"></i>
-                <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
-            </a>
         </nav>
-        <!-- Hamburger menu mobile -->
-        <div class="md:hidden">
-            <button id="menu-btn" class="focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+
+        <!-- ACTIONS -->
+        <div class="flex items-center gap-4">
+
+            <!-- PANIER -->
+            <a href="<?= base_url('panier') ?>" class="relative p-2 rounded-lg hover:bg-blue-50">
+                <i class="fas fa-shopping-cart text-xl"></i>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    0
+                </span>
+            </a>
+
+            <!-- COMPTE -->
+            <?php
+            $session = session();
+
+            if ($session->get('connected')) {
+                if ($session->get('isAdmin')) {
+                    echo anchor('admin',
+                            '<i class="fa-solid fa-user-shield"></i>',
+                            ['class'=>'p-2 rounded-lg hover:bg-blue-50']
+                    );
+                } else {
+                    echo anchor('account',
+                            '<i class="fa-solid fa-user"></i>',
+                            ['class'=>'p-2 rounded-lg hover:bg-blue-50']
+                    );
+                }
+            } else {
+                echo anchor('auth/connexion',
+                        '<i class="fa-solid fa-user"></i>',
+                        ['class'=>'p-2 rounded-lg hover:bg-blue-50']
+                );
+            }
+            ?>
+
+            <!-- BURGER -->
+            <button id="menu-btn" class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
     </div>
 
-    <!-- Menu mobile caché -->
+    <!-- MOBILE MENU -->
     <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
-        <a href="index.html" class="block px-6 py-3 hover:bg-blue-50">Accueil</a>
-        <a href="produits.html" class="block px-6 py-3 hover:bg-blue-50">Produits</a>
-        <a href="panier.html" class="block px-6 py-3 hover:bg-blue-50">Panier</a>
-        <a href="admin.html" class="block px-6 py-3 hover:bg-blue-50">Admin</a>
+        <div class="px-6 py-4 space-y-3">
+            <a href="<?= base_url() ?>" class="block hover:text-blue-600">Accueil</a>
+            <a href="<?= base_url('produitsliste/all') ?>" class="block hover:text-blue-600">Produits</a>
+            <a href="<?= base_url('panier') ?>" class="block hover:text-blue-600">Panier</a>
+
+            <?php
+            if ($session->get('connected')) {
+                echo anchor('account','Mon compte',['class'=>'block hover:text-blue-600']);
+            } else {
+                echo anchor('auth/connexion','Connexion',['class'=>'block hover:text-blue-600']);
+            }
+            ?>
+        </div>
     </div>
 </header>
-
-<script>
-    const btn = document.getElementById('menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-    });
-
-    let cartCount = 0;
-    const cartCountEl = document.getElementById('cart-count');
-    function updateCartCount(count) {
-        cartCountEl.textContent = count;
-    }
-    updateCartCount(cartCount);
-</script>

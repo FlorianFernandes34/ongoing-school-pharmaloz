@@ -3,9 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Categorie;
-use App\Models\Commande;
-use App\Models\Produit;
-use DateTime;
 
 class Admin extends BaseController
 {

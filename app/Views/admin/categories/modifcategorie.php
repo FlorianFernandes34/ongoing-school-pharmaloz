@@ -38,7 +38,7 @@
 
         <!-- NOM DE LA CATEGORIE -->
         <div>
-            <?= form_label('Nom Catégorie', 'nomCateg', ['class' => 'block text-gray-700 font-semibold mb-2']) ?>
+            <?= form_label('Nom de la catégorie', 'nomCateg', ['class' => 'block text-gray-700 font-semibold mb-2']) ?>
             <?= form_input('nomCateg', $categorie->nom, [
                 'class' => 'w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'id' => 'nomCateg',
@@ -49,7 +49,7 @@
 
         <!-- BOUTON SUBMIT -->
         <div>
-            <?= form_submit('modifProduit', 'Modifier le produit', [
+            <?= form_submit('modifProduit', 'Modifier la catégorie', [
                 'class' =>
                     'w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 rounded-lg transition'
             ]) ?>

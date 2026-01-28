@@ -25,6 +25,12 @@
                     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
                         <span class="block sm:inline">' . $session->getFlashdata("successDeleteData") . '</span>
                     </div>';
+                }elseif ($session->getFlashdata('successChangePassword')) {
+                    echo ' 
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                            <span class="block sm:inline">' . $session->getFlashdata("successChangePassword") . '</span>
+                        </div>
+                    ';
                 }
             ?>
         </div>
@@ -72,6 +78,8 @@
                 ];
                 echo form_submit('submit', 'Se connecter', $input)
             ?>
+            <p class="text-center text-gray-600 mt-4"><a href="<?= base_url('auth/mailchangepassword')?>" class="text-blue-600 hover:underline">Mot de passe oublié ? </a></p>
+
         </div>
 
         <p class="text-center text-gray-600 mt-4">Pas encore de compte ? <a href="<?= base_url('auth/inscription')?>" class="text-blue-600 hover:underline">Inscrivez-vous</a></p>

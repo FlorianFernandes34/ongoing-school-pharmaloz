@@ -19,6 +19,8 @@
             echo '<div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6 text-sm">' . $session->getFlashdata("errorCategDelete") . '</div>';
         } else if ($session->getFlashdata('successCategDelete')) {
             echo '<div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-6 text-sm">' . $session->getFlashdata("successCategDelete") . '</div>';
+        } else if ($session->getFlashdata('errorModifCateg')) {
+            echo '<div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6 text-sm">' . $session->getFlashdata("errorModifCateg") . '</div>';
         }
         ?>
     </div>

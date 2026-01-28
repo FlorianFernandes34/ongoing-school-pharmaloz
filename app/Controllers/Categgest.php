@@ -37,7 +37,13 @@ class Categgest extends BaseController {
         $nomCategorie = $this->request->getPost('nomCateg');
 
         $categorie = new Categorie();
+
+        $categoryName = iconv('UTF-8', 'ASCII//TRANSLIT', $nomCategorie);
+        $categoryName = strtolower($categoryName);
+        $categorieFormat = preg_replace("/[^a-z0-9]/", "", $categoryName);
+
         $categorie->nom = $nomCategorie;
+        $categorie->nom_lien = $categorieFormat;
 
         if ($categorie->save()) {
             $session->setFlashdata('successCategAdd', 'La catégorie a été ajoutée avec succès.');
@@ -58,7 +64,7 @@ class Categgest extends BaseController {
         $categorie = Categorie::find($id);
 
         if (!$categorie) {
-            $session->setFlashdata('errorModifCateg', 'Cette catégorie n\'existe pas.');
+            $session->setFlashdata('errorModifCateg', 'Cette catégorie n\'existe pas/plus.');
             return redirect()->back();
         }
 
@@ -87,7 +93,12 @@ class Categgest extends BaseController {
             return redirect()->back();
         }
 
+        $categoryName = iconv('UTF-8', 'ASCII//TRANSLIT', $nomCategorie);
+        $categoryName = strtolower($categoryName);
+        $categorieFormat = preg_replace("/[^a-z0-9]/", "", $categoryName);
+
         $categorie->nom = $nomCategorie;
+        $categorie->nom_lien = $categorieFormat;
 
         if ($categorie->save()) {
             $session->setFlashdata('successModifCateg', 'Cette catégorie a été modifée avec succès.');
@@ -108,7 +119,7 @@ class Categgest extends BaseController {
         $categ = Categorie::find($id);
 
         if (!$categ) {
-            $session->setFlashdata('errorCategDelete', 'Cette catégorie n\'existe pas.');
+            $session->setFlashdata('errorCategDelete', 'Cette catégorie n\'existe pas/plus.');
             return redirect()->back();
         }
 
