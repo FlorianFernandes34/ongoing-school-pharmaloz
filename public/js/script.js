@@ -429,7 +429,7 @@ function checkPassword(confirmValue) {
 /*********************************
  *  FONCTIONS GESTION PANIER
  *********************************/
-function showNotification(success, message = "Produit ajouté au panier") {
+function showNotification(success, message) {
     var toast;
 
     if (success) {
@@ -592,3 +592,26 @@ document.addEventListener('click', (e) => {
         window.location.href = base_url + '/commgest/listecom/1';
     }
 });
+
+const dateInput = document.getElementById('dateInput');
+
+if (dateInput) {
+    dateInput.addEventListener('change', () => {
+        let date = new Date(dateInput.value);
+
+        if (date.getDate() === 0) {
+            alert('La pharmacie est fermée le dimanche, veuillez choisir une autre date.');
+            dateInput.value = '';
+            return;
+        }
+
+        let minutes = date.getHours() * 60 + date.getMinutes();
+
+        let ok = (minutes >= 9*60 && minutes <= 19*60);
+
+        if (!ok) {
+            alert('Le créneau choisi est hors des horaires d\'ouvertures. Les horaires d\'ouverture sont les suivantes : 9h-19h.');
+            dateInput.value = '';
+        }
+    });
+}

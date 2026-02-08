@@ -33,7 +33,7 @@ class Panier extends BaseController
             "categories" => Categorie::all(),
             "produits" => $produits,
             "total" => number_format($total, 2, ',', ' '),
-            "page" => 'Accueil'
+            "page" => 'Panier'
         ];
 
         return view('template/head', $data)
@@ -53,6 +53,23 @@ class Panier extends BaseController
         return $nbProduits;
     }
 
+    private function checkStock($idProduit, $qteDemandee) {
+        $produit = Produit::find($idProduit);
+        $stockReserve = $produit->stock_reserve;
+
+        if ($stockReserve > 0) {
+            if ($stockReserve + $qteDemandee >= $produit->stock) {
+                return true;
+            }
+        }
+
+        if ($qteDemandee++ >= $produit->stock) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function postAjouterpanier() {
         $idProd = $this->request->getPost('idProduit');
 
@@ -69,7 +86,7 @@ class Panier extends BaseController
 
         if (isset($panier[$idProd])) {
             $qte = $panier[$idProd]['qte'];
-            if ($qte++ >= $produit->stock) {
+            if ($this->checkStock($idProd, $qte)) {
                 return json_encode([
                     'success' => false,
                     'message' => 'La quantité demandée dépasse le stock disponible.'
@@ -78,6 +95,12 @@ class Panier extends BaseController
             $panier[$idProd]['qte']++;
             session()->set('panier', $panier);
         }else {
+            if ($this->checkStock($idProd, 1)) {
+                return json_encode([
+                    'success' => false,
+                    'message' => 'La quantité demandée dépasse le stock disponible.'
+                ]);
+            }
             $panier[$idProd] = [
                 'idProd' => $idProd,
                 'qte' => 1
@@ -157,7 +180,7 @@ class Panier extends BaseController
 
         if (isset($panier[$idProd])) {
             $qte = $panier[$idProd]['qte'];
-            if ($qte++ >= $produit->stock) {
+            if ($this->checkStock($idProd, $qte)) {
                 return json_encode([
                     'success' => false,
                     'message' => 'La quantité demandée dépasse le stock disponible.'

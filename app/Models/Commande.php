@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 class Commande extends Model {
     public $timestamps = false;
 
+    protected $fillable = [
+        'creneau_retrait', 'date_heure', 'statut', 'commentaire', 'utilisateur_id'
+    ];
+
     protected $casts = [
         'creneau_retrait' => 'datetime',
         'date_heure' => 'datetime'

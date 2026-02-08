@@ -82,9 +82,15 @@
                             <?= number_format($produit->prix, 2, ',', ' ') ?> €
                         </span>
 
-                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" onclick="ajouterAuPanier(<?=$produit->id?>)">
-                                Ajouter
-                            </button>
+                            <?php if($produit->stock == 0 || $produit->stock == $produit->stock_reserve): ?>
+                                <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition" disabled>
+                                    Indisponible
+                                </button>
+                            <?php else: ?>
+                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" onclick="ajouterAuPanier(<?=$produit->id?>)">
+                                    Ajouter
+                                </button>
+                            <?php endif; ?>
 
                         </div>
                     </div>

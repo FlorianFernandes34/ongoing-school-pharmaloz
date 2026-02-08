@@ -41,7 +41,7 @@ class Auth extends BaseController {
     public function getLogout() {
         $session = session();
 
-        $session->destroy();
+        $session->remove(['user_id', 'user_email', 'user_nom', 'user_prenom', 'isAdmin', 'connected']);
 
         $session->setFlashdata('successLogout', 'Vous avez bien été déconnecté');
         return redirect()->to('auth/connexion');
@@ -248,6 +248,8 @@ class Auth extends BaseController {
         }
         return redirect()->to('account/updateinfos');
     }
+
+    // METHODES CHANGEMENT MOT DE PASSE (oubli)
 
     public function postMailchangepassword() {
         $session = session();
