@@ -56,8 +56,11 @@
             <!-- PANIER -->
             <a href="<?= base_url('panier') ?>" class="relative p-2 rounded-lg hover:bg-blue-50">
                 <i class="fas fa-shopping-cart text-xl"></i>
+                <?php
+                    $panier = session()->get('panier');
+                ?>
                 <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                    0
+                    <?= session()->get('cartCount') ?? 0 ?>
                 </span>
             </a>
 

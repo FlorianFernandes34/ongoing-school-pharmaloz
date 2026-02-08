@@ -1,4 +1,11 @@
 <main class="max-w-7xl mx-auto px-6 py-10 space-y-10">
+    <!-- NOTIFICATIONS -->
+    <div id="toast-panier-success" class="fixed top-6 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-50">
+        .
+    </div>
+    <div id="toast-panier-error" class="fixed top-6 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-50">
+        .
+    </div>
 
     <!-- TITRE -->
     <div>
@@ -75,7 +82,7 @@
                             <?= number_format($produit->prix, 2, ',', ' ') ?> €
                         </span>
 
-                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" onclick="ajouterAuPanier(<?=$produit->id?>)">
                                 Ajouter
                             </button>
 

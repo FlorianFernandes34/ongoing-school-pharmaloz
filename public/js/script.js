@@ -427,6 +427,156 @@ function checkPassword(confirmValue) {
 }
 
 /*********************************
+ *  FONCTIONS GESTION PANIER
+ *********************************/
+function showNotification(success, message = "Produit ajouté au panier") {
+    var toast;
+
+    if (success) {
+        toast = document.getElementById("toast-panier-success");
+    }else {
+        toast = document.getElementById("toast-panier-error");
+    }
+
+    toast.textContent = message;
+
+    toast.classList.remove('opacity-0');
+    toast.classList.add('opacity-100');
+
+    setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+    }, 2000);
+}
+
+function parsePrix(val) {
+    return parseFloat(val.replace(/\s/g, '').replace(',', '.'));
+}
+
+function updateTotalPrice(prixProduit, addOrRemove) {
+    const cartTotal = document.getElementById('cart-total');
+
+    let total = parsePrix(cartTotal.textContent);
+    let prix  = parsePrix(prixProduit);
+
+    if (addOrRemove === 'remove') {
+        total -= prix;
+    } else if (addOrRemove === 'add') {
+        total += prix;
+    }
+
+    cartTotal.textContent = total.toLocaleString('fr-FR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+async function updatePanierNumberOfProducts() {
+    const cartCount = document.getElementById('cart-count');
+
+    const res = await fetch(base_url + `/panier/updatepaniernumberofproducts`);
+
+    const response = await res.json();
+
+    cartCount.textContent = response.numberOfProducts;
+}
+
+async function ajouterAuPanier(idProduit) {
+    if (!idProduit) return;
+
+    const res = await fetch(base_url + `/panier/ajouterpanier`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+            idProduit: idProduit
+        } )
+    });
+    const response = await res.json();
+
+    if (!response.success) return showNotification(false, response.message);
+
+    await updatePanierNumberOfProducts();
+    showNotification(true, response.message);
+}
+
+async function removeOneFromCart(idProduit) {
+    if (!idProduit) return;
+    const qteField = document.getElementById(`qteFieldFor-${idProduit}`);
+    const qteFieldVal = parseInt(qteField.textContent);
+
+    const res = await fetch(base_url + `/panier/retirerunitepanier`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+            idProduit: idProduit
+        } )
+    });
+
+    const response = await res.json();
+    if (!response.success) return showNotification(false, response.message);
+
+    await updatePanierNumberOfProducts();
+    if (response.isEmpty) {
+        qteField.closest('.cart-item').remove();
+    }else {
+        qteField.textContent= qteFieldVal - 1;
+    }
+    updateTotalPrice(response.prixProduit, 'remove');
+    showNotification(true, response.message);
+}
+
+async function addOneToCart(idProduit) {
+    if (!idProduit) return;
+    const qteField = document.getElementById(`qteFieldFor-${idProduit}`);
+    const qteFieldVal = parseInt(qteField.textContent);
+
+    const res = await fetch(base_url + `/panier/ajouterunitepanier`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+            idProduit: idProduit
+        } )
+    });
+
+    const response = await res.json();
+    if (!response.success) return showNotification(false, response.message);
+
+    await updatePanierNumberOfProducts();
+    qteField.textContent = qteFieldVal + 1;
+    updateTotalPrice(response.prixProduit, 'add');
+    showNotification(true, response.message);
+}
+
+async function deleteFromCart(idProduit) {
+    if (!idProduit) return;
+    const qteField = document.getElementById(`qteFieldFor-${idProduit}`);
+    const cartContainer = document.getElementById('cart-container');
+    const containerOnCartEmpty = document.getElementById('container-on-cart-empty');
+    const recapPanierContainer = document.getElementById('recap-panier');
+
+    const res = await fetch(base_url + `/panier/supprimerdupanier`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+            idProduit: idProduit
+        } )
+    });
+
+    const response = await res.json();
+    if (!response.success) return showNotification(false, response.message);
+
+    updateTotalPrice(response.totalPriceBeforeRemove, 'remove');
+    await updatePanierNumberOfProducts();
+    qteField.closest('.cart-item').remove();
+
+    if (cartContainer.children.length === 0) {
+        containerOnCartEmpty.style.display = 'block';
+        recapPanierContainer.style.display = 'none';
+    }
+
+    showNotification(true, response.message);
+}
+/*********************************
  *  DIVERS
  *********************************/
 
@@ -436,6 +586,7 @@ function doubleConfirmOnClick(message, messageBis) {
 
     return confirm(messageBis);
 }
+
 document.addEventListener('click', (e) => {
     if (e.target.closest('#resetSearch')) {
         window.location.href = base_url + '/commgest/listecom/1';
