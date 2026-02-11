@@ -1,5 +1,5 @@
-const base_url = "https://localhost/pharmaloz";
-const base_url_ajax = "https://localhost/pharmaloz/ajax/";
+const base_url = "http://localhost/pharmaloz";
+const base_url_ajax = "http://localhost/pharmaloz/ajax/";
 
 /*********************************
  *  GESTION MENU MOBILE

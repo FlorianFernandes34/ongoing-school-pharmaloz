@@ -92,7 +92,7 @@ class Passagecommande extends BaseController {
         }
 
         $commande = Commande::create([
-            'statut' => 'En cours',
+            'statut' => 'Validée ',
             'date_heure' => date('Y-m-d H:i:s'),
             'creneau_retrait' => $creneau,
             'commentaire' => $commentaire,
