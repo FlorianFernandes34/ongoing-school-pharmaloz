@@ -13,7 +13,7 @@ class Account extends BaseController {
     public function getIndex() {
         $session = session();
         $userid = $session->get('user_id');
-        $commandes = Commande::where("utilisateur_id", $userid)->get();
+        $commandes = Commande::where("utilisateur_id", $userid)->orderBy("id", "DESC")->get();
 
         $data = [
             "activePage" => 'home',
@@ -36,7 +36,7 @@ class Account extends BaseController {
         $data = [
             "activePage" => 'home',
             'categories' => Categorie::all(),
-            "page" => 'Modifier mot de passe'
+            "page" => 'Modifier mon adresse mail',
         ];
 
         return view('template/head', $data)
@@ -49,7 +49,7 @@ class Account extends BaseController {
         $data = [
             "activePage" => 'home',
             'categories' => Categorie::all(),
-            "page" => 'Modifier mot de passe'
+            "page" => 'Modifier mon mot de passe'
         ];
 
         return view('template/head', $data)
@@ -65,7 +65,7 @@ class Account extends BaseController {
             "user_nom" => $session->get('user_nom'),
             "user_prenom" => $session->get('user_prenom'),
             'categories' => Categorie::all(),
-            "page" => 'Modifier mot de passe'
+            "page" => 'Modifier mes informations'
         ];
 
         return view('template/head', $data)
@@ -76,6 +76,35 @@ class Account extends BaseController {
 
     public function getVoircommande($id) {
         $commande = Commande::find($id);
+        $userId = session()->get("user_id");
+
+        if (!$commande) {
+            $data = [
+                "activePage" => 'home',
+                'categories' => Categorie::all(),
+                "page" => 'Voir une commande',
+                'commande' => "Aucune commande",
+            ];
+
+            return view('template/head', $data)
+                . view('template/header', $data)
+                . view('auth/voircommande', $data)
+                . view('template/footer', $data);
+        }
+
+        if ($commande->utilisateur_id != $userId) {
+            $data = [
+                "activePage" => 'home',
+                'categories' => Categorie::all(),
+                "page" => 'Voir une commande',
+                'commande' => "Aucune commande",
+            ];
+
+            return view('template/head', $data)
+                . view('template/header', $data)
+                . view('auth/voircommande', $data)
+                . view('template/footer', $data);
+        }
 
         $data = [
             "activePage" => 'home',
