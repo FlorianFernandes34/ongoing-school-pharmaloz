@@ -23,4 +23,15 @@ class Commande extends Model {
         return $this->belongsToMany(Produit::class)->withPivot('quantite');
     }
 
+    public static function getCreneauxReserves() {
+        $commandes = Commande::all();
+        $creneauxReserves = [];
+
+        foreach ($commandes as $commande) {
+            $creneauxReserves[] = $commande->creneau_retrait;
+        }
+
+        return $creneauxReserves;
+    }
+
 }
