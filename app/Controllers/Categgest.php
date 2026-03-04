@@ -71,7 +71,7 @@ class Categgest extends BaseController {
         $data = [
             "categories" => Categorie::all(),
             "categorie" => $categorie,
-            "page" => 'Modifier un produit',
+            "page" => 'Modifier une catégorie',
         ];
 
         return view('template/head', $data)

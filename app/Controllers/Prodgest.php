@@ -40,7 +40,7 @@ class Prodgest extends BaseController {
     public function getAjoutproduit() {
         $data = [
             "categories" => Categorie::all(),
-            "page" => 'Ajout Produit'
+            "page" => 'Ajouter un produit'
         ];
 
         return view('template/head', $data)

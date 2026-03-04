@@ -25,7 +25,7 @@ class Commgest extends BaseController {
         $data = [
             "categories" => Categorie::all(),
             "commandes" => $commandes,
-            "page" => 'Liste des produits',
+            "page" => 'Liste des commandes',
             "currentPage" => $page,
             "lastPage" => $lastPage
         ];
@@ -65,7 +65,7 @@ class Commgest extends BaseController {
             "categories" => Categorie::all(),
             "commande" => $commande,
             "produits" => $produits,
-            "page" => 'Liste des produits',
+            "page" => 'Ajouter un produit',
         ];
 
         return view('template/head', $data)

@@ -11,7 +11,7 @@ class Comptgest extends BaseController {
         $data = [
             "categories" => Categorie::all(),
             "comptes" => Utilisateur::all()->where("role", "admin"),
-            "page" => 'Liste des catégories',
+            "page" => 'Liste des comptes administrateurs',
         ];
 
         return view('template/head', $data)
