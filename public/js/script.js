@@ -299,7 +299,7 @@ function initGestionQuantite() {
                 deleteProduit(articleId);
                 if (document.querySelectorAll('tbody tr').length === 0) {
                     alert('La commande est maintenant vide et a été annulée.');
-                    window.location.href = 'http://localhost/pharmaloz/commgest/listecom/1';
+                    window.location.href = base_url + '/commgest/listecom/1';
                 }
             }
         });
