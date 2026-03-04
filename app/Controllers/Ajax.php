@@ -48,6 +48,27 @@ class Ajax extends BaseController {
             }
         }
 
+        $produitsCommande = $commande->produits;
+
+        if ($nouveauStatut == "Retirée") {
+            foreach ($produitsCommande as $p) {
+                $produit = $p;
+                $quantite = $p->pivot->quantite;
+
+                $produit->stock_reserve -= $quantite;
+                $produit->stock -= $quantite;
+                $produit->save();
+            }
+        } elseif ($nouveauStatut == "Annulée") {
+            foreach ($produitsCommande as $p) {
+                $produit = $p;
+                $quantite = $p->pivot->quantite;
+
+                $produit->stock_reserve -= $quantite;
+                $produit->save();
+            }
+        }
+
         $commande->statut = $nouveauStatut;
 
         if ($commande->save()) {
@@ -68,7 +89,6 @@ class Ajax extends BaseController {
         $query = trim($this->request->getPost('query'));
 
 
-        // Requête de base avec relations chargées
         $commandes = Commande::with('utilisateur', 'produits');
 
         if ($query === '') {
@@ -162,7 +182,14 @@ class Ajax extends BaseController {
             ]);
         }
 
+        $ligneProduit = $commande->produits->where('id', $produitId)->first();
+        $quantiteProduit = $ligneProduit->pivot->quantite;
+        $produit->stock_reserve -= $quantiteProduit;
+        $produit->stock_reserve += $newQte;
+        $produit->save();
+
         $commande->produits()->where('produits.id', $produitId)->update(['quantite' => $newQte]);
+
 
         if ($commande->save()) {
             return json_encode([
@@ -192,6 +219,11 @@ class Ajax extends BaseController {
                 'success' => false
             ]);
         }
+
+        $ligneProduit = $commande->produits->where('id', $produitId)->first();
+        $quantiteProduit = $ligneProduit->pivot->quantite;
+        $produit->stock_reserve -= $quantiteProduit;
+        $produit->save();
 
         $commande->produits()->detach($produitId);
 
