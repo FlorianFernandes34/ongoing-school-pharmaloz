@@ -10,22 +10,13 @@
             <span class="text-2xl font-bold text-blue-600">PharmaLoz</span>
         </a>
 
-        <!-- SEARCH BAR -->
-        <div class="hidden lg:flex flex-1 max-w-md">
-            <div class="relative w-full">
-                <input type="text" placeholder="Rechercher un produit..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            </div>
-        </div>
 
-        <!-- NAV DESKTOP -->
         <nav class="hidden md:flex items-center gap-2 font-medium">
 
             <a href="<?= base_url() ?>" class="px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition">
                 Accueil
             </a>
 
-            <!-- PRODUITS + CATEGORIES -->
             <div class="relative group">
                 <a href="<?= base_url('produits/produitsliste/all') ?>" class="px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition flex items-center gap-2">
                     Produits

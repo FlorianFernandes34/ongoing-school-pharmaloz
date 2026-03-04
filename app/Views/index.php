@@ -17,7 +17,7 @@
                 </p>
 
                 <div class="flex gap-4">
-                    <a href="produits.html" class="inline-block px-8 py-4 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition">
+                    <a href="<?= base_url('produits/produitsliste/all')?>" class="inline-block px-8 py-4 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition">
                         Voir les produits
                     </a>
 
@@ -71,7 +71,7 @@
                 <i class="fas fa-pills text-5xl text-blue-600 mb-4"></i>
                 <h3 class="text-2xl font-semibold mb-2">Médicaments</h3>
                 <p class="text-gray-600 mb-4">Douleurs, fièvre, rhume, digestion...</p>
-                <a href="produits.html#medicaments" class="text-blue-600 font-semibold hover:underline">
+                <a href="<?= base_url('produits/produitsliste/medicaments')?>" class="text-blue-600 font-semibold hover:underline">
                     Voir →
                 </a>
             </div>
@@ -80,7 +80,7 @@
                 <i class="fas fa-leaf text-5xl text-green-600 mb-4"></i>
                 <h3 class="text-2xl font-semibold mb-2">Bien-être</h3>
                 <p class="text-gray-600 mb-4">Sommeil, stress, vitamines, énergie.</p>
-                <a href="produits.html#bien-etre" class="text-green-600 font-semibold hover:underline">
+                <a href="<?= base_url('produits/produitsliste/beaute')?>" class="text-green-600 font-semibold hover:underline">
                     Voir →
                 </a>
             </div>
@@ -89,7 +89,7 @@
                 <i class="fas fa-heart text-5xl text-pink-500 mb-4"></i>
                 <h3 class="text-2xl font-semibold mb-2">Beauté & Soins</h3>
                 <p class="text-gray-600 mb-4">Visage, corps, cheveux, hygiène.</p>
-                <a href="produits.html#beaute" class="text-pink-600 font-semibold hover:underline">
+                <a href="<?= base_url('produits/produitsliste/soins')?>" class="text-pink-600 font-semibold hover:underline">
                     Voir →
                 </a>
             </div>

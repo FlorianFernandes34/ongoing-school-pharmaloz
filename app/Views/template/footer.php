@@ -16,9 +16,7 @@
             <h4 class="font-semibold text-lg mb-4">Navigation</h4>
             <ul class="space-y-2 text-sm">
                 <li><a href="<?= base_url('/') ?>" class="hover:text-blue-600">Accueil</a></li>
-                <li><a href="<?= base_url('/produits') ?>" class="hover:text-blue-600">Produits</a></li>
-                <li><a href="<?= base_url('/categories') ?>" class="hover:text-blue-600">Catégories</a></li>
-                <li><a href="<?= base_url('/contact') ?>" class="hover:text-blue-600">Contact</a></li>
+                <li><a href="<?= base_url('/produits/produitsliste/all') ?>" class="hover:text-blue-600">Produits</a></li>
             </ul>
         </div>
 
@@ -26,9 +24,7 @@
         <div>
             <h4 class="font-semibold text-lg mb-4">Informations</h4>
             <ul class="space-y-2 text-sm">
-                <li><a href="<?= base_url('/mentions-legales') ?>" class="hover:text-blue-600">Mentions légales</a></li>
-                <li><a href="<?= base_url('/cgu') ?>" class="hover:text-blue-600">Conditions générales</a></li>
-                <li><a href="<?= base_url('/confidentialite') ?>" class="hover:text-blue-600">Confidentialité</a></li>
+                <li><a href="<?= base_url('/mentionslegales') ?>" class="hover:text-blue-600">Mentions légales</a></li>
             </ul>
         </div>
 

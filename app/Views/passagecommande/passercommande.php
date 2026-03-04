@@ -63,11 +63,17 @@
                     <label for="creneau_retrait" class="font-semibold">Créneau de retrait</label>
 
                     <select name="creneau_retrait" required class="w-full border rounded-lg p-2">
-                        <?php foreach ($creneaux as $creneau): ?>
-                            <option value="<?= $creneau->format('Y-m-d H:i:s') ?>">
-                                <?= $creneau->format('d/m/Y H:i') ?>
-                            </option>
-                        <?php endforeach; ?>
+                        <?php foreach($creneaux as $c): ?>
+                            <?php if($c['disponible']): ?>
+                                <option value="<?= $c['date']->format('Y-m-d H:i') ?>">
+                                    <?= $c['date']->format('d/m/Y H:i') ?>
+                                </option>
+                            <?php else: ?>
+                                <option disabled>
+                                    <?= $c['date']->format('d/m/Y H:i') ?> - Créneau déjà réservé
+                                </option>
+                            <?php endif ?>
+                        <?php endforeach ?>
                     </select>
                 </div>
 
